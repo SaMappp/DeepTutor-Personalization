@@ -1,0 +1,14 @@
+DeepTutor-Personalization — unofficial personal customization archive
+
+Based on HKUDS/DeepTutor v1.7.1, commit f7aed0744c36c5afef16a4261c31ebee1208cac2.
+Upstream: https://github.com/HKUDS/DeepTutor
+Original DeepTutor authors and contributors retain their copyright and attribution.
+Upstream Apache-2.0 text and THIRD_PARTY_NOTICES.md are retained.
+
+Local customizations curated by SaMappp with coding-agent assistance, published 2026-11-10.
+Changes: loopback launcher, startup/stop helpers, reasoning effort UI and request mapping,
+local learning support, document conversion, PDF OCR, knowledge-to-reading synchronization,
+reading menu placement and desktop restore/show layout handling.
+Modified upstream files have prominent comments; patches and manifest identify every changed path.
+New independent PDF/OCR and learning-support tools use AGPL-3.0-or-later as identified by headers.
+This is not an official DeepTutor release or endorsement, and grants no trademark rights.

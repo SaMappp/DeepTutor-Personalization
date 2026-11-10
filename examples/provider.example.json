@@ -1,0 +1,25 @@
+{
+  "profile_id": "llm-profile-authorized-provider",
+  "name": "Authorized API (explicit configuration)",
+  "base_url": "https://api.example.com/v1",
+  "api_key_env": "DEEPTUTOR_PROVIDER_API_KEY",
+  "models": [
+    {
+      "id": "llm-model-authorized-example",
+      "name": "Example model",
+      "model": "YOUR_MODEL_ID",
+      "reasoning_effort": "high",
+      "supported_reasoning_efforts": [
+        "low",
+        "high"
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "name": "CLI",
+      "api": "http://127.0.0.1:8001",
+      "settings_dir": "C:/path/to/DeepTutor/data/user/settings"
+    }
+  ]
+}

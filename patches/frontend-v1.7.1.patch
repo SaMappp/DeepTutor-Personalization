@@ -1,0 +1,426 @@
+diff --git a/web/components/chat/home/ChatComposer.tsx b/web/components/chat/home/ChatComposer.tsx
+--- a/web/components/chat/home/ChatComposer.tsx
++++ b/web/components/chat/home/ChatComposer.tsx
+@@ -1,3 +1,5 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+ "use client";
+ 
+ import {
+@@ -520,6 +522,7 @@
+   const CapIcon = activeCap.icon;
+ 
+   const [hasContent, setHasContent] = useState(false);
++  const [reasoningSaving, setReasoningSaving] = useState(false);
+   const [moreCapsOpen, setMoreCapsOpen] = useState(false);
+   const [lastCapMenuOpen, setLastCapMenuOpen] = useState(capMenuOpen);
+   const textareaRef = useRef<HTMLTextAreaElement>(null);
+@@ -868,7 +871,7 @@
+     (content: string) => {
+       // Keyboard and button submissions share the same admission checks.
+       // A refused submission must leave the draft in the input.
+-      if (isStreaming && !awaitingUserReply) return false;
++      if (reasoningSaving || (isStreaming && !awaitingUserReply)) return false;
+       if (capabilityNeedsConfig && !capabilityConfigConfirmed) {
+         onRequestConfigConfirm();
+         return false;
+@@ -899,7 +902,7 @@
+       return true;
+     },
+     [awaitingUserReply, capabilityConfigConfirmed, capabilityNeedsConfig,
+-      cancelDraftSave, enqueueDraftWrite, focusTextarea, isStreaming, onRequestConfigConfirm, onSend],
++      cancelDraftSave, enqueueDraftWrite, focusTextarea, isStreaming, reasoningSaving, onRequestConfigConfirm, onSend],
+   );
+ 
+   const { board: taskBoard } = useTaskBoard();
+@@ -941,7 +944,7 @@
+   // mid-turn is sent (queued) and Stop moves to a button of its own.
+   const queuing = Boolean(queueWhileStreaming) && isStreaming && !awaitingUserReply;
+   const streamingBlocksSend = isStreaming && !awaitingUserReply && !(queuing && hasIntent);
+-  const canSend = hasIntent && !streamingBlocksSend && !isConfigBlocked;
++  const canSend = hasIntent && !streamingBlocksSend && !isConfigBlocked && !reasoningSaving;
+ 
+   // `blocked` only exists once there is intent: without it the button stays
+   // `idle` so an empty composer doesn't present a live send affordance. That
+@@ -949,7 +952,7 @@
+   // the `blocked` state can stay clickable and surface the config card.
+   const sendState: SendState = streamingBlocksSend
+     ? "streaming"
+-    : !hasIntent
++    : !hasIntent || reasoningSaving
+       ? "idle"
+       : isConfigBlocked
+         ? "blocked"
+@@ -1205,7 +1208,7 @@
+         : queuing
+           ? t("Queue message")
+           : t("Send");
+-  const sendTitle =
++  const sendTitle = reasoningSaving ? t("Saving...") :
+     sendState === "blocked"
+       ? t("Confirm settings on the right to send.")
+       : sendLabel;
+@@ -1553,6 +1556,10 @@
+ 
+               <div className={styles.actions}>
+                 <ModelSelector
++                  placement={hasMessages || docked ? "top" : "bottom"}
++                  showReasoning
++                  onReasoningSavingChange={setReasoningSaving}
++                  reasoningDisabled={isStreaming}
+                   options={llmOptions}
+                   activeDefault={activeLLMDefault}
+                   value={llmSelection}
+diff --git a/web/components/chat/home/ModelSelector.tsx b/web/components/chat/home/ModelSelector.tsx
+--- a/web/components/chat/home/ModelSelector.tsx
++++ b/web/components/chat/home/ModelSelector.tsx
+@@ -1,12 +1,15 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+ "use client";
+ 
+-import { useEffect, useMemo, useRef, useState } from "react";
++import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import { AlertCircle, Bot, Check, ChevronDown } from "lucide-react";
+ import { useTranslation } from "react-i18next";
+ import { useLingerExpand } from "@/hooks/use-linger-expand";
+ import { useOutsideClick } from "@/hooks/use-outside-click";
+ import Tooltip from "@/shared/ui/Tooltip";
+ import ToolbarLabel from "./ToolbarLabel";
++import ReasoningEffortSelector from "./ReasoningEffortSelector";
+ import ProviderIcon from "@/components/common/ProviderIcon";
+ import type { LLMSelection } from "@/features/chat/model/protocol";
+ import {
+@@ -24,7 +27,7 @@
+ 
+ function providerLabel(option: LLMOption) {
+   return (
+-    option.provider_label || option.provider || option.profile_name || "LLM"
++    option.profile_name || option.provider_label || option.provider || "LLM"
+   );
+ }
+ 
+@@ -116,6 +119,9 @@
+   helperText,
+   placement = "top",
+   pinned = false,
++  showReasoning = false,
++  reasoningDisabled = false,
++  onReasoningSavingChange,
+   onChange,
+   onRefresh,
+ }: {
+@@ -131,11 +137,19 @@
+   placement?: "top" | "bottom";
+   /** Optional always-visible label for surfaces outside the composer. */
+   pinned?: boolean;
++  showReasoning?: boolean;
++  reasoningDisabled?: boolean;
++  onReasoningSavingChange?: (saving: boolean) => void;
+   onChange: (selection: LLMSelection | null) => void;
+   onRefresh?: () => void;
+ }) {
+   const { t } = useTranslation();
+   const [open, setOpen] = useState(false);
++  const [reasoningSaving, setReasoningSaving] = useState(false);
++  const handleReasoningSaving = useCallback((saving: boolean) => {
++    setReasoningSaving(saving);
++    onReasoningSavingChange?.(saving);
++  }, [onReasoningSavingChange]);
+   const rootRef = useRef<HTMLDivElement>(null);
+   const {
+     expanded,
+@@ -164,7 +178,7 @@
+     systemDefaultDetail || t("Use the active default model from Settings");
+   const canRefresh = error && Boolean(onRefresh);
+   const disabled =
+-    loading ||
++    loading || reasoningSaving ||
+     (!canRefresh && (error || (options.length === 0 && !allowSystemDefault)));
+   const label = loading
+     ? t("Loading models")
+@@ -181,7 +195,7 @@
+     placement === "bottom" ? "top-full mt-1.5" : "bottom-full mb-1.5";
+ 
+   return (
+-    <div ref={rootRef} className="relative">
++    <div ref={rootRef} className="relative flex min-w-0 items-center gap-0.5">
+       {/* The model name shares the composer selectors' spring and hover delay. */}
+       <Tooltip label={canRefresh ? t("Refresh models") : label} suppressed={open} side="top">
+         <button
+@@ -220,6 +234,10 @@
+           </ToolbarLabel>
+         </button>
+       </Tooltip>
++
++      {showReasoning && selectedOption && (
++        <ReasoningEffortSelector key={selectedKey} option={selectedOption} disabled={disabled || reasoningDisabled} placement={placement} onRefresh={onRefresh} onSavingChange={handleReasoningSaving} />
++      )}
+ 
+       {open && !disabled && (
+         <div
+diff --git a/web/components/chat/home/ReasoningEffortSelector.tsx b/web/components/chat/home/ReasoningEffortSelector.tsx
+new file mode 100644
+--- /dev/null
++++ b/web/components/chat/home/ReasoningEffortSelector.tsx
+@@ -0,0 +1,100 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
++"use client";
++import { useEffect, useMemo, useRef, useState } from "react";
++import { Brain, Check, ChevronDown, Loader2 } from "lucide-react";
++import { useTranslation } from "react-i18next";
++import { useOutsideClick } from "@/hooks/use-outside-click";
++import Tooltip from "@/shared/ui/Tooltip";
++import type { LLMOption } from "@/lib/llm-options";
++import { invalidateLLMOptionsCache } from "@/lib/llm-options";
++import { reasoningEffortOptions, reasoningEffortOptionsFromSupportedLevels } from "@/lib/reasoning-effort";
++import { saveChatReasoningEffort } from "@/lib/chat-reasoning";
++
++export default function ReasoningEffortSelector({ option, disabled = false, placement = "top", onRefresh, onSavingChange }: {
++  option: LLMOption; disabled?: boolean; placement?: "top" | "bottom"; onRefresh?: () => void; onSavingChange?: (saving: boolean) => void;
++}) {
++  const { t } = useTranslation();
++  const [open, setOpen] = useState(false);
++  const [saving, setSaving] = useState(false);
++  const [value, setValue] = useState(option.reasoning_effort ?? "");
++  const [error, setError] = useState(false);
++  const root = useRef<HTMLDivElement>(null);
++  const trigger = useRef<HTMLButtonElement>(null);
++  const mounted = useRef(true);
++  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
++  useEffect(() => { setValue(option.reasoning_effort ?? ""); }, [option.reasoning_effort]);
++  const choices = useMemo(() => option.supported_reasoning_efforts?.length
++    ? reasoningEffortOptionsFromSupportedLevels(option.supported_reasoning_efforts)
++    : reasoningEffortOptions(option.provider, option.model, option.reasoning_effort, option.declared_reasoning),
++    [option.provider, option.model, option.reasoning_effort, option.supported_reasoning_efforts, option.declared_reasoning]);
++  useOutsideClick(root, open, () => { if (!saving) setOpen(false); });
++  if (choices.length < 2) return null;
++  const current = choices.find(choice => choice.value === value);
++  const label = value ? t(current?.label ?? value) : t("Auto");
++  const title = t("Reasoning effort") + ": " + label;
++  async function save(next: string) {
++    if (saving || disabled) return;
++    if (next === value) { setOpen(false); return; }
++    setSaving(true); setError(false); onSavingChange?.(true);
++    try {
++      await saveChatReasoningEffort(option, next);
++      invalidateLLMOptionsCache();
++      onRefresh?.();
++      if (mounted.current) { setValue(next); setOpen(false); }
++    } catch {
++      if (mounted.current) setError(true);
++    } finally {
++      onSavingChange?.(false);
++      if (mounted.current) setSaving(false);
++    }
++  }
++  return (
++    <div ref={root} className="relative shrink-0">
++      <Tooltip label={title} suppressed={open} side="top">
++        <button ref={trigger} type="button" aria-label={title} aria-haspopup="listbox" aria-expanded={open}
++          disabled={disabled || saving} onClick={() => { setOpen(!open); setError(false); }}
++          onKeyDown={event => {
++            if (event.key === "ArrowDown" || event.key === "ArrowUp") {
++              event.preventDefault(); setOpen(true);
++              requestAnimationFrame(() => root.current?.querySelector<HTMLButtonElement>('[role="option"]')?.focus());
++            }
++          }}
++          className="inline-flex h-8 items-center gap-1 rounded-lg px-2 text-[12px] font-medium text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)]/55 hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-40">
++          {saving ? <Loader2 size={14} className="animate-spin" /> : <Brain size={14} strokeWidth={1.7} />}
++          <span>{label}</span><ChevronDown size={11} />
++        </button>
++      </Tooltip>
++      {open && (
++        <div className={"absolute right-0 z-50 " + (placement === "bottom" ? "top-full mt-1.5" : "bottom-full mb-1.5") +
++          " w-48 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--popover)] py-1 shadow-lg"}
++          role="listbox" aria-label={t("Reasoning effort")} aria-busy={saving}
++          onKeyDown={event => {
++            if (event.key === "Escape") {
++              event.preventDefault(); event.stopPropagation();
++              if (!saving) setOpen(false);
++              trigger.current?.focus();
++            }
++            const buttons = Array.from(root.current?.querySelectorAll<HTMLButtonElement>('[role="option"]') ?? []);
++            const index = buttons.indexOf(document.activeElement as HTMLButtonElement);
++            let next: number | undefined;
++            if (event.key === "ArrowDown") next = (index + 1) % buttons.length;
++            if (event.key === "ArrowUp") next = (index - 1 + buttons.length) % buttons.length;
++            if (event.key === "Home") next = 0;
++            if (event.key === "End") next = buttons.length - 1;
++            if (next !== undefined) { event.preventDefault(); buttons[next]?.focus(); }
++          }}>
++          <div className="px-3 py-1.5 text-[11px] text-[var(--muted-foreground)]">{t("Reasoning effort")}</div>
++          {choices.map(choice => (
++            <button key={choice.value} type="button" role="option" aria-selected={value === choice.value}
++              disabled={saving} onClick={() => void save(choice.value)}
++              className="flex w-full items-center justify-between px-3 py-1.5 text-left text-[12.5px] text-[var(--foreground)] hover:bg-[var(--muted)]/55 disabled:opacity-50">
++              <span>{t(choice.label)}</span>{value === choice.value && <Check size={13} />}
++            </button>
++          ))}
++          {error && <p role="alert" className="px-3 py-2 text-xs text-red-500">{t("Save failed")}</p>}
++        </div>
++      )}
++    </div>
++  );
++}
+diff --git a/web/components/reading/workspace/ReadingComposer.tsx b/web/components/reading/workspace/ReadingComposer.tsx
+--- a/web/components/reading/workspace/ReadingComposer.tsx
++++ b/web/components/reading/workspace/ReadingComposer.tsx
+@@ -1,3 +1,5 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+ "use client";
+ 
+ /**
+@@ -143,6 +145,7 @@
+ 
+   return (
+     <StandaloneComposer
++      docked
+       capabilities={capabilities}
+       activeCapValue={activeCapabilityValue}
+       onSelectCapability={selectCapability}
+diff --git a/web/lib/chat-reasoning.ts b/web/lib/chat-reasoning.ts
+new file mode 100644
+--- /dev/null
++++ b/web/lib/chat-reasoning.ts
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
++import { apiFetch, apiUrl } from "@/lib/api";
++import type { LLMOption } from "@/lib/llm-options";
++import { setCodexReasoningEffort } from "@/lib/codex-oauth";
++
++/** Update only this model's effort; never change provider/model defaults. */
++export async function saveChatReasoningEffort(option: LLMOption, effort: string): Promise<void> {
++  const supported = option.supported_reasoning_efforts;
++  if (effort && supported?.length && !supported.includes(effort)) throw new Error("Unsupported reasoning effort");
++  if (option.provider === "openai_codex") {
++    await setCodexReasoningEffort(option.model, effort || null);
++    return;
++  }
++  const response = await apiFetch(apiUrl("/api/settings/apply/registry"), {
++    method: "POST",
++    headers: { "Content-Type": "application/json" },
++    body: JSON.stringify({
++      kind: "model", service: "llm", profile_id: option.profile_id, model_id: option.model_id,
++      model: { id: option.model_id, model: option.model, reasoning_effort: effort },
++    }),
++  });
++  if (!response.ok) throw new Error("Could not save reasoning effort");
++}
+diff --git a/web/lib/llm-options.ts b/web/lib/llm-options.ts
+--- a/web/lib/llm-options.ts
++++ b/web/lib/llm-options.ts
+@@ -1,3 +1,5 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+ import { apiFetch, apiUrl } from "@/lib/api";
+ import { invalidateClientCache, withClientCache } from "@/lib/client-cache";
+ import type { LLMSelection } from "@/features/chat/model/protocol";
+@@ -16,6 +18,7 @@
+   reasoning_effort?: string;
+   supported_reasoning_efforts?: string[];
+   supports_vision?: boolean;
++  declared_reasoning?: boolean;
+   is_active_default: boolean;
+ }
+ 
+diff --git a/web/tests/chat-reasoning-selector.spec.tsx b/web/tests/chat-reasoning-selector.spec.tsx
+new file mode 100644
+--- /dev/null
++++ b/web/tests/chat-reasoning-selector.spec.tsx
+@@ -0,0 +1,92 @@
++// SPDX-License-Identifier: Apache-2.0
++// Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
++import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
++import { beforeEach, describe, expect, it, vi } from "vitest";
++import { initI18n } from "@/i18n/init";
++import type { LLMOption } from "@/lib/llm-options";
++import ModelSelector from "@/components/chat/home/ModelSelector";
++import ReasoningEffortSelector from "@/components/chat/home/ReasoningEffortSelector";
++import { saveChatReasoningEffort } from "@/lib/chat-reasoning";
++import { apiFetch } from "@/lib/api";
++import { setCodexReasoningEffort } from "@/lib/codex-oauth";
++
++initI18n("en");
++vi.mock("@/lib/api", () => ({ apiUrl: (path: string) => path, apiFetch: vi.fn() }));
++vi.mock("@/lib/codex-oauth", () => ({ setCodexReasoningEffort: vi.fn() }));
++vi.mock("@/shared/ui/Tooltip", () => ({ default: ({children}: {children: React.ReactNode}) => children }));
++
++const custom: LLMOption = {
++  profile_id: "deepworks", model_id: "flash", profile_name: "DeepWorks credits",
++  model_name: "DeepSeek Flash", model: "DeepSeek-V4-Flash", provider: "custom",
++  is_active_default: false, reasoning_effort: "low", supported_reasoning_efforts: ["low", "high", "max"],
++};
++beforeEach(() => {
++  vi.mocked(apiFetch).mockResolvedValue(new Response("{}", {status: 200}));
++  vi.mocked(setCodexReasoningEffort).mockResolvedValue({} as Awaited<ReturnType<typeof setCodexReasoningEffort>>);
++});
++
++describe("chat reasoning effort", () => {
++  it("shows only the declared provider levels", () => {
++    render(<ReasoningEffortSelector option={custom} />);
++    fireEvent.click(screen.getByRole("button", {name: "Reasoning effort: Low"}));
++    expect(screen.getByRole("option", {name: "Maximum"})).toBeTruthy();
++    expect(screen.queryByRole("option", {name: "Medium"})).toBeNull();
++  });
++  it("saves the selected model without changing defaults or other models", async () => {
++    const refresh = vi.fn();
++    render(<ReasoningEffortSelector option={custom} onRefresh={refresh} />);
++    fireEvent.click(screen.getByRole("button", {name: "Reasoning effort: Low"}));
++    fireEvent.click(screen.getByRole("option", {name: "High"}));
++    await waitFor(() => expect(refresh).toHaveBeenCalledOnce());
++    const args = vi.mocked(apiFetch).mock.calls[0];
++    expect(args[0]).toBe("/api/settings/apply/registry");
++    const body = JSON.parse(String(args[1]?.body));
++    expect(body).toEqual({
++      kind: "model", service: "llm", profile_id: "deepworks", model_id: "flash",
++      model: {id: "flash", model: "DeepSeek-V4-Flash", reasoning_effort: "high"},
++    });
++    expect(body.active_model_id).toBeUndefined();
++    expect(screen.getByRole("button", {name: "Reasoning effort: High"})).toBeTruthy();
++  });
++  it("keeps the current value and a retryable menu after a failed save", async () => {
++    vi.mocked(apiFetch).mockResolvedValue(new Response("{}", {status: 500}));
++    render(<ReasoningEffortSelector option={custom} />);
++    fireEvent.click(screen.getByRole("button", {name: "Reasoning effort: Low"}));
++    fireEvent.click(screen.getByRole("option", {name: "High"}));
++    expect(await screen.findByRole("alert")).toHaveProperty("textContent", "Save failed");
++    expect(screen.getByRole("button", {name: "Reasoning effort: Low"})).toBeTruthy();
++  });
++  it("prevents setting changes while the learning request is running", () => {
++    render(<ReasoningEffortSelector option={custom} disabled />);
++    fireEvent.click(screen.getByRole("button", {name: "Reasoning effort: Low"}));
++    expect(screen.queryByRole("listbox")).toBeNull();
++    expect(apiFetch).not.toHaveBeenCalled();
++  });
++  it("uses Codex's managed preference endpoint and supports provider Auto", async () => {
++    const codex = {...custom, provider: "openai_codex", model: "gpt-6.1-sol"};
++    await saveChatReasoningEffort(codex, "high");
++    expect(setCodexReasoningEffort).toHaveBeenCalledWith("gpt-6.1-sol", "high");
++    await saveChatReasoningEffort(codex, "");
++    expect(setCodexReasoningEffort).toHaveBeenCalledWith("gpt-6.1-sol", null);
++    expect(apiFetch).not.toHaveBeenCalled();
++  });
++  it("rejects undeclared levels before writing settings", async () => {
++    await expect(saveChatReasoningEffort(custom, "ultra")).rejects.toThrow("Unsupported");
++    expect(apiFetch).not.toHaveBeenCalled();
++  });
++
++  it("locks model selection and reports pending state until the save finishes", async () => {
++    let finish!: (response: Response) => void;
++    vi.mocked(apiFetch).mockImplementationOnce(() => new Promise(resolve => { finish = resolve; }));
++    const pending = vi.fn();
++    render(<ModelSelector options={[custom]} activeDefault={custom} value={null}
++      loading={false} error={false} onChange={vi.fn()} showReasoning onReasoningSavingChange={pending} />);
++    fireEvent.click(screen.getByRole("button", {name: "Reasoning effort: Low"}));
++    fireEvent.click(screen.getByRole("option", {name: "High"}));
++    expect(pending).toHaveBeenLastCalledWith(true);
++    expect(screen.getByRole("button", {name: "Select model"})).toBeDisabled();
++    await act(async () => finish(new Response("{}", {status: 200})));
++    expect(pending).toHaveBeenLastCalledWith(false);
++    expect(screen.getByRole("button", {name: "Select model"})).not.toBeDisabled();
++  });
++});

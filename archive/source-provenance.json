@@ -1,0 +1,660 @@
+[
+  {
+    "source": "DeepTutor/Codex与桌面版使用说明.md",
+    "export": "archive/workspace/DeepTutor/Codex与桌面版使用说明.md",
+    "original_sha256": "75a93b163b9a3e4215c0ffc5f23c36bef785786558bab7a443a8d959c13c5b64",
+    "export_sha256": "cab0cc2cb6098b83d2a51ec6427efc3d8c79e77cc4ccf96aed300024510ba40f",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/DeepSeek账号与推理强度说明.md",
+    "export": "archive/workspace/DeepTutor/DeepSeek账号与推理强度说明.md",
+    "original_sha256": "f7ab4a00d86eb6a57323d98430957c851c2e029d629ce60b7ddedd560c66379f",
+    "export_sha256": "ff88d24c93f2b62164cf9383fb48a8d9416434c1b9333c2eb9283188e07a7e7c",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/DeepWorks模型接入说明.md",
+    "export": "archive/workspace/DeepTutor/DeepWorks模型接入说明.md",
+    "original_sha256": "3966e83a96bb15d5e7eea0fb74064f3efb5a8671cac8df1ac2c25c8c84bc6b0f",
+    "export_sha256": "3710c096facf9752357c6beaf6337cde20332c989649095d570deea30af56e2b",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/Login-Codex.cmd",
+    "export": "archive/workspace/DeepTutor/Login-Codex.cmd",
+    "original_sha256": "96dbb7efdf2f51b5fc1dea080fa9ac2670d0c96e87d6aaa74b0a88c6721daee4",
+    "export_sha256": "801e852ea87172564e429a91791cf8e96ede97047942a97b23a9f8381c002764",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/requirements-installed.txt",
+    "export": "archive/workspace/DeepTutor/requirements-installed.txt",
+    "original_sha256": "d2917fecb50477663c3d6831430c9a78afcfed3e34dcc76bf45d48ad67fbddaa",
+    "export_sha256": "d67cdae10e9d2dcd4ee02f730293e0b0f449f43e7808641ada256e2defd8e40a",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/Start-DeepTutor.cmd",
+    "export": "archive/workspace/DeepTutor/Start-DeepTutor.cmd",
+    "original_sha256": "15bbaee642f33a02fac6ed679a9e95819e7ae6f9c369e4d75d50d544fe43bf74",
+    "export_sha256": "0901640df03c86855315e4db3048518a537ed83400646bce771cec83e1bde78b",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/start_deeptutor.py",
+    "export": "archive/workspace/DeepTutor/start_deeptutor.py",
+    "original_sha256": "bed935482d738b9a1bcf59556a7a8ef5b66e75f61362ca7c90e36db67b68f035",
+    "export_sha256": "7f7e895f458d4e98c2ac80db52a3af9153b0c7b72de6253e0378b68f3e85e3d5",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/Stop-DeepTutor.cmd",
+    "export": "archive/workspace/DeepTutor/Stop-DeepTutor.cmd",
+    "original_sha256": "1383f8d4a5844f192dff54b251d12da40ee90c59acd1a79afb02f6c77a10a964",
+    "export_sha256": "61dfbfff59270e3196abd4930e400e536ebc021af18987d367b51203577bc697",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/stop_deeptutor.py",
+    "export": "archive/workspace/DeepTutor/stop_deeptutor.py",
+    "original_sha256": "202f1352065fea2dabb413c97697afb504700374fba2510a0542747689004fc7",
+    "export_sha256": "6e2216cc3ce3c50bc56f05baa499a20368aae6c2605b87895f55b97ff9c85a07",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/使用说明.md",
+    "export": "archive/workspace/DeepTutor/使用说明.md",
+    "original_sha256": "607bdae4723ff0ce57b38ac64b69f48ac3ed94042ce2393a9ec21eea9dbdf355",
+    "export_sha256": "8fb9bfe5e997c4ff7728c698d1e26fccbb9a12737a89ba8644a2ea8e63663696",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/安装验证记录.md",
+    "export": "archive/workspace/DeepTutor/安装验证记录.md",
+    "original_sha256": "f90b95d3baef427a6bc2533ce034f774a04fa5d779d399efa7f60dae03286e56",
+    "export_sha256": "7e68b0a82608601247704c0e41e224a5b230a077a6ad98d7f32d8e2c91ef18ec",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor/整体检查记录.md",
+    "export": "archive/workspace/DeepTutor/整体检查记录.md",
+    "original_sha256": "0bc548e3a4533d635dd092b94b086c4c3bcb29726447bd2e8ee805de975bd714",
+    "export_sha256": "3032eea0554b2619410b2152db9c369a069c2bcef68713470c88bf10cae9d1ef",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/configure_learning_services.py",
+    "export": "archive/workspace/DeepTutor-learning-support/configure_learning_services.py",
+    "original_sha256": "d5efa057f046ce509f8ca8bc40bf833bb800a8b3f7c6548fe1d9f5ba23b28e86",
+    "export_sha256": "0dc925900cbdfbce4e559426c2e5be02d1087ce5953bd7753bb8d7226b21dc12",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/ensure_support.py",
+    "export": "archive/workspace/DeepTutor-learning-support/ensure_support.py",
+    "original_sha256": "e6f27a3c1e5c5d92b432a8e74b7d9186bdc620eb6fe3d24cdf01a8ec86e80cb0",
+    "export_sha256": "08dadce610624670043ab99b0ecca4075cb8830313dd425b30d6e56fe35401b2",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/finalize_course_indexes.py",
+    "export": "archive/workspace/DeepTutor-learning-support/finalize_course_indexes.py",
+    "original_sha256": "fd62efc93022d6bb763524e3e4f59edf1afd4eabc03d80a19ddbb40d197c799d",
+    "export_sha256": "9be27e70e38db29d2fd057806a43fd99fee40b238052bbeb43f7414dba78f852",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/import_course_materials.py",
+    "export": "archive/workspace/DeepTutor-learning-support/import_course_materials.py",
+    "original_sha256": "82fa6a4e15b550040a0fecab242285fab378fd34e1e2648e0d67f8b8ae8491fe",
+    "export_sha256": "41e49340a3c21c64b427dbeb6bc6f82acbb5aa49fe7f27ca07e053adea3ad46d",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/launch_desktop.py",
+    "export": "archive/workspace/DeepTutor-learning-support/launch_desktop.py",
+    "original_sha256": "30f1b6aca9c8626931d9edb77ee79868d995b2b4ab74ee673b072157d277ecf6",
+    "export_sha256": "aabc63d5355f425087df663466176e75e9e5eb507ed393fbb3776a8b7b80ed7f",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/requirements.lock.txt",
+    "export": "archive/workspace/DeepTutor-learning-support/requirements.lock.txt",
+    "original_sha256": "9c656786c37c1079ae39f31bb13463d1b513ac818edcb98f35703b59bf0a3b65",
+    "export_sha256": "cf9fc9c20053f59d8f409c6541ef8480e2a9c26bbfabe117624b4fc8c2a826a2",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-learning-support/server.py",
+    "export": "archive/workspace/DeepTutor-learning-support/server.py",
+    "original_sha256": "c4cdf39535713900b350bdae96707e4ad3b675d7cefd9b5ff09ae7ac8c820dbf",
+    "export_sha256": "4afa7cbe47189099acfb43ef4f838bf3dd26ab1adbe7e95afdc0d038278eafed",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/audit_pdf_output.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/audit_pdf_output.py",
+    "original_sha256": "335c2c2f4647a8b44dc4cd8cb4b834380a6bd805f57596088115bd5e42bf396b",
+    "export_sha256": "d22fd7c9f258ee569318900a28337d4f5394d02810c682298d20c9260c291992",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/convert_materials.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/convert_materials.py",
+    "original_sha256": "1ced2adb8fd557bafb704baf5b4567ef62b0d6b17a8b7a1c2d5cc00b4a95c3ee",
+    "export_sha256": "59fc19745f9f4d0ea757cc5d4a308c4874f29f13446b02593d9ee9ab3f0ec10c",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/finalize_pdf_collections.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/finalize_pdf_collections.py",
+    "original_sha256": "fae04a9fed641bb1492b5150e212670f5cb877c66b3116d0a08b9241ec15bd2d",
+    "export_sha256": "212502f4e3676c175743285a4fe68a03a0a3a9d51cb2be1adb14742776261f51",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/import_python_pdfs.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/import_python_pdfs.py",
+    "original_sha256": "1a3e6fde1821900c267fb39646601edac507dcddb9972f192fcc0349e6aaa213",
+    "export_sha256": "5de936f9740b0d7b1bbc4a12b9ca0836caca5a6a8ec11df4ece418fcd4512617",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/PDF教材自动处理与导入.cmd",
+    "export": "archive/workspace/DeepTutor-conversion-tools/PDF教材自动处理与导入.cmd",
+    "original_sha256": "ad7fa194f14e0cf28340de825b8e5d364921519acd42e131fcc3c0e6afbe5b4b",
+    "export_sha256": "71cf182d756437a3265b5d6719b78b3622063ab971934476c33b095a956aaf05",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/PDF转图片PPT.cmd",
+    "export": "archive/workspace/DeepTutor-conversion-tools/PDF转图片PPT.cmd",
+    "original_sha256": "fa541270e15403b6ffd25291b225c576ae9c910ed59deb6377ad1684e20af8bc",
+    "export_sha256": "1c73bf6927c75d5fb5a994aa87a527ff2ed0debc1c15bd360bb2e52c1710bdc6",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/PPT转PDF.cmd",
+    "export": "archive/workspace/DeepTutor-conversion-tools/PPT转PDF.cmd",
+    "original_sha256": "5f03e0d016ad97e4c23ada201756b0b76d8b74e38df8a0e5013c5b0c4c359f4f",
+    "export_sha256": "d798de59022ea7da680ff305177a3dd2664cb4256fea3361dddbba3d023112b6",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/repair_lecture02_overflow.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/repair_lecture02_overflow.py",
+    "original_sha256": "83f02a91cc09d995e8b3253c4d5377a4a4a8c80f1298ed3285f643884c195c46",
+    "export_sha256": "f7da1c1d185de3a764cf28194250eb8131252c47aed52a8a25dad48d6efa82ff",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/requirements-pdf2pptx.lock.txt",
+    "export": "archive/workspace/DeepTutor-conversion-tools/requirements-pdf2pptx.lock.txt",
+    "original_sha256": "63ff852e9340ed3799bcc9259ef933cae7582368fe7ec255fc26bb16e04e7f46",
+    "export_sha256": "a0ca344423a68ffb2052c4c3f92339550c4889941b212e8e40b5565157c45465",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/verify_final_setup.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/verify_final_setup.py",
+    "original_sha256": "f022405d591c5ea0d0f738a57f5a86a460f4726efcacbdc6382f0f06cc87d059",
+    "export_sha256": "2acedad7707260a2f29da65bc48391361c97f3be327d2d1bdc26d5a79eb61985",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/导入Python PDF到两套DeepTutor.cmd",
+    "export": "archive/workspace/DeepTutor-conversion-tools/导入Python PDF到两套DeepTutor.cmd",
+    "original_sha256": "cb9b595d1a44ea1ba7291afc4d54e7242791459ca4c32e6470f661ce57b664e2",
+    "export_sha256": "506b64546f6c1740cd69e510dc1a9089d4f8f1f828f68fb9462d3507951d6641",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/download_models.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/download_models.py",
+    "original_sha256": "948d81f13ca210f68b0103fb0c27d1c6e485fa63236e48cd3f746610bd76b3d0",
+    "export_sha256": "6144f69f78db1ae370337cc9bb4fa9e77f4888efe6a2a46fa6596b9da5fac021",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/import_searchable.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/import_searchable.py",
+    "original_sha256": "0bcb38530e13fcab38ab149b2d643b911552820a3559e9ed47f6adf1e508a285",
+    "export_sha256": "73dec8f93fe47f0a90162217ac6a7ab8f21aa3db43e5d3fa7cd0cb6886bd120c",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/inspect_calculus.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/inspect_calculus.py",
+    "original_sha256": "d96a132977df3050d402ebc96c85b9f17be8a06fd62cd1663f2ae54b1bac4b51",
+    "export_sha256": "4cb2348fe77ed74e7170671b9772275ac898ef6acdf7ac7ca088b57da76be418",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/inspect_reading.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/inspect_reading.py",
+    "original_sha256": "066f2d5b8c15e3268bf7837a7c01e3ee2b54e4db7050bf7f25cef3e9033067c4",
+    "export_sha256": "904e09709bd2766c3e529da4b759fd9c6d93d2620e369457d9de9d1ce16d457c",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/make_searchable.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/make_searchable.py",
+    "original_sha256": "423f659ef05ba9ed30e74c63c69a97d371cdc8d7eb42b2bbc8c9c731108d1e25",
+    "export_sha256": "95e5f6c283f0c0dfff4c8f0d42c0472bf47949d9fc0c92e4e4909d2fa25b1ae2",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/make_searchable_rapid.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/make_searchable_rapid.py",
+    "original_sha256": "a98b4c0f63538115dd1e0936d37981098033d31ea54468e1509032167b6a6f87",
+    "export_sha256": "6fe3b062a6244d90f759e453b31d7e6fd5cf2a4a7a62effe2ccca42ecefc14fc",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/validate_searchable.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/validate_searchable.py",
+    "original_sha256": "06cb858c298ab642d1fc854220dcc004424b720571e068b33beaf50a60fbaa44",
+    "export_sha256": "7450df81ce88a8917a415b5984b22cc3197439665952be0ec3df557a0eb5f04c",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/ocr/write_delivery_note.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/ocr/write_delivery_note.py",
+    "original_sha256": "d5769842216cbd82f002143b80d3cd1ba8ae31609005c59d5f15b0a5c0535e64",
+    "export_sha256": "4f16fe83a1dc2c19a93a3a730edd94490f3d7e40bee1c96e66b3dfd9800fde86",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/adopt_current_book.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/adopt_current_book.py",
+    "original_sha256": "0ffdecd15495b9200c1a3fc7248a2fd90bda561d2c6387d015dcb5c83360d2fc",
+    "export_sha256": "61e1d7f2fd1530489c60d9558d20fe06ec23fd1334e8a0d35c908558c4c82ccd",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/cli.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/cli.py",
+    "original_sha256": "e7623a38d7037cef39db064cd04f7ab4a933cd1c4711d08fdced89c1fdb75e46",
+    "export_sha256": "03cdc30fb6a945e06443a8424bce88288a38225873a25c4721ed387a3fe1e18e",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/deeptutor_client.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/deeptutor_client.py",
+    "original_sha256": "b6e05de65e623dc6e33eb8fefd406e459586896a94bd554b9c1cdf1793449e8a",
+    "export_sha256": "5dda55bbb96438f469e4a8540ed1dec19e25ccdee30cd00811ce69e3299012cd",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/engine.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/engine.py",
+    "original_sha256": "f6e36d74ae5371e77b60fb8e51d9c10d492f1972d376431b303ea16f1f842784",
+    "export_sha256": "36e39a339847f78c4682f2f6f7351a3df3af0f751170eac6decb812b823deb91",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/gui.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/gui.py",
+    "original_sha256": "bee9c18f937b495c85ad77f39b6f103e63b3edaa0c17963e63c84811ee54be39",
+    "export_sha256": "a0140dce9133d28dd489ab9593594766ae4ff27687122a08e86b693b5000b54e",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/pipeline.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/pipeline.py",
+    "original_sha256": "94d240ec1933e18dd795be3cdfc5769c68a2c6a8699aea57c189878989bb5ede",
+    "export_sha256": "d3a7885346a7cd7aa63f2acc806b82f00a778e422b36e5f7c5026b1354997926",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/verify_import.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/verify_import.py",
+    "original_sha256": "ae9d3375995a4ae8e9838fa9db69b74cab3a45eb16d2e48648945ded78b0db37",
+    "export_sha256": "c20cb9f90d03eb8ede9fbc73f66a18bd755905712273a189ea266046b70f9c90",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/verify_tool.py",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/verify_tool.py",
+    "original_sha256": "b4401cade644ea6d1e1988ef3132005b2c11ef706e7857d562859f6066b02cc1",
+    "export_sha256": "fa2ae55c83e97b83956fcd0449965a2ebdaefd7ba145b3e63c693ed1a747de9e",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-conversion-tools/pdf-textbook-tool/使用说明.md",
+    "export": "archive/workspace/DeepTutor-conversion-tools/pdf-textbook-tool/使用说明.md",
+    "original_sha256": "f910ce3cd4ebbb17907279be960e4a4ce50b61ab92245c603a66b593ed3bafea",
+    "export_sha256": "d8dd0986bd0a6495c685a258affb2361ae70f3ea2bb39ecb9e06a33f44d58839",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/deploy.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/deploy.py",
+    "original_sha256": "6b43373c9d1edc036f12e5c5a0ca9ea4c006bbdb2fafd52d52eca8f0caef5001",
+    "export_sha256": "69a571230f910c534d440936d30338169da30bcf3812028018db2179f7929ff7",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/finish_audit.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/finish_audit.py",
+    "original_sha256": "434ae8d92b8d3511f79d70bf711b1dc4ba511ef3154f3437b28b033a6672bbde",
+    "export_sha256": "74fe0b2a90d753133acc2a2fd8adf3fe6ece4df4f2b0d2af9d8b3e98e13196ac",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/fix_desktop_layout.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/fix_desktop_layout.py",
+    "original_sha256": "7b1b1bc0247846b64c6e305d9b53c2df1439b3e32578b8a723bb1c6b4116e229",
+    "export_sha256": "81ac9a61d189218302b949dde0f5c4ed401f82218d41e3f213029c06db34e123",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/prepare_ui.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/prepare_ui.py",
+    "original_sha256": "955b066d6e7ef738d5fedc1e3f6ae1145bfe218142d2d6c8de4e0af2d52561b6",
+    "export_sha256": "ede33a2b95636b43cf1d286b7fbc2578e181ad7d3c3ca6fb34d64d5f8ba6c922",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/test_failure.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/test_failure.py",
+    "original_sha256": "b18def08c7b40c9ae0e4e374d2f40a8100cb1371d3c6dd3d15cb5c2a4c74da53",
+    "export_sha256": "7a2d3a1c11f4a902272347e9e8693e7840766dee27ed4a4c377af0dce6c3caba",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/test_native.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/test_native.py",
+    "original_sha256": "a0deb033e6a714162101d4ef7cfe85d4467621a2ad832e2c6b27071e3cc70eb7",
+    "export_sha256": "403527958c00ffc32c8b446997333e433ec78324be2f0cf002449f4a7656c0c6",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/verify_live.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/verify_live.py",
+    "original_sha256": "be9fef36866dfe806812863bb6f9a333fd98a65d699e0d5bee587e7dd87eeeef",
+    "export_sha256": "439810f50937be36c2a9283d862865aaad993186ebbb2fc04fdc36880153a8e9",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/worker.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/worker.py",
+    "original_sha256": "c7d7a5ed997eb61e66c9ebcc7dc149fddabe9ca6e6c02d0370409a70e0430e38",
+    "export_sha256": "bad88e9416d60228695ec02a14a0d0730fa5832a28396ecc1fe6c21cbb488c38",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/使用说明与验证记录.md",
+    "export": "archive/workspace/DeepTutor-native-ocr/使用说明与验证记录.md",
+    "original_sha256": "024bc0a7dea3df7c1a39ccc1b0d8a02aaeaa7fcee816b007072a27d44da90864",
+    "export_sha256": "1df64b7af19d77d97c6d4d42eb6076503cb369443a8572df64c07bff9d9f6c7f",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/backfill.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/backfill.py",
+    "original_sha256": "9331800ffa26570619a8f49cdc471ad67c27e78099c817ab99698092daf77892",
+    "export_sha256": "4af53594ca9b0daacf19e83938f6a8ecb03e9dbe57fd7c07f89415d64de0dde3",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/baseline.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/baseline.py",
+    "original_sha256": "3c2a66ed0d7410b6061a68d1a4f2d2c3e5c304d04bf947131347ee2de9d56e5b",
+    "export_sha256": "431e1669b9d5149247d5c3b8b592aac97f7dc97818ffff50e40210a7a1ba42ad",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/prepare.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/prepare.py",
+    "original_sha256": "5535970742f18ba4a7019a2fb23386c3bf9f0c990a39b37666dddfa2467e7c55",
+    "export_sha256": "952f7d1acff49d09ca60b71f9d8d1142a5237d41062251e47c9843efb9d55e99",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/test_sync.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/test_sync.py",
+    "original_sha256": "7cea2786b5b222b22f6774dc6a96b1f3297526190af09e2490c9e16228e3561e",
+    "export_sha256": "ada32d57eb15ebc5a0dae58394edce33995efa9bc328dd86cc7fcc76cfca56f5",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/verify_preservation.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/verify_preservation.py",
+    "original_sha256": "967faa98774922197cb47157bfaf02a36f340d7411f08bff878427abfaaf8332",
+    "export_sha256": "8981c7cfca172700edd8eabe97e9a2e79a13a1c7645fb442ad1661c96814fff2",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/verify_upload_flow.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/verify_upload_flow.py",
+    "original_sha256": "577d5c35c8aab9768a92cafa93034193c3ae80dfc1f39e9778e35b5587320f66",
+    "export_sha256": "fc972c6ec9a03f5500160a5e0301ce86596f66423c8a61352df4bc210da19af9",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/同步说明.md",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/同步说明.md",
+    "original_sha256": "89913118b3abd120064dc63019f1ae7916a7dbedd888ac6d3dc6605d540c09df",
+    "export_sha256": "792c7f5a82581cdb43d15e76b44409ca4143c34a10d4aed5487081aa0caec817",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-menu-placement/deploy_frontend.py",
+    "export": "archive/workspace/DeepTutor-menu-placement/deploy_frontend.py",
+    "original_sha256": "d09a38523b215721eeffc0e8cfe0e8bb160b889b64df195aa3c65325bdfc4439",
+    "export_sha256": "15d19799b286b68c7c0d5f27407628ad7f0705a12b006afa6b6a907139ca8176",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "DeepTutor-menu-placement/修复说明.md",
+    "export": "archive/workspace/DeepTutor-menu-placement/修复说明.md",
+    "original_sha256": "5addba2a454c17deec7c0fe0fb941b4a5dbd489bdb955d189e5f765f7bb39c36",
+    "export_sha256": "9f6bd577dbbf2b9ef4532d30fd5010aa7095bcff25c0585765ba9aaf7d4dbc2d",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "PPT课件转换与阅读说明.md",
+    "export": "archive/workspace/PPT课件转换与阅读说明.md",
+    "original_sha256": "57511e4aff1bd65936e19a1d5f8c9f36be833874aa76681c86fab2545348b1ba",
+    "export_sha256": "ecfeaef6ed0551a772b5e9926d8a49f428cc2be600a40d6879fedccca04fe33a",
+    "kind": "sanitized-historical-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/api/routers/knowledge.py",
+    "export": "overrides/cli/deeptutor/api/routers/knowledge.py",
+    "original_sha256": "49b976940cd9384457f41fab81d917dd9dfdb2de4d7ff70f788dc42eb15db913",
+    "export_sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/api/routers/reading.py",
+    "export": "overrides/cli/deeptutor/api/routers/reading.py",
+    "original_sha256": "a51c062df3a4fe92ffb7a3016844c0f6665e846ddb309c1a93e491641a7508a4",
+    "export_sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/knowledge/add_documents.py",
+    "export": "overrides/cli/deeptutor/knowledge/add_documents.py",
+    "original_sha256": "3a9784e02f7fa878e41bcb65e91cb260e7a4fa9160056bd1a7ac63e760c72f75",
+    "export_sha256": "04c9240a5bfe049f15392071ff8d0d7d6579e526c4e5db91a3da23ea7e6511a3",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/knowledge/initializer.py",
+    "export": "overrides/cli/deeptutor/knowledge/initializer.py",
+    "original_sha256": "45b91eb1d55d47b0477abbe2c147091143a2c1934fa2f2e4af8453003cc643ac",
+    "export_sha256": "1ea89e03992ecb50e1b3bb6c47933d55da9d8c91e5a8d46db8f28ec0652ab1e2",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/reading/knowledge_sync.py",
+    "export": "overrides/cli/deeptutor/reading/knowledge_sync.py",
+    "original_sha256": "2282a261446dca269d66988a71bdfae3a37f2e6dd6993b0a9e610a988e72d1ad",
+    "export_sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/runtime/launcher.py",
+    "export": "overrides/cli/deeptutor/runtime/launcher.py",
+    "original_sha256": "61b325dcc704a9efc1bbff0bb836bc069755f502e48c09fe40d3a4483d8c3ce5",
+    "export_sha256": "25a972151aa05ba1c7a93401e2eefd21cd95f2d9000fe54ce19e7155866a1b19",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-cli/deeptutor/services/model_selection/llm.py",
+    "export": "overrides/cli/deeptutor/services/model_selection/llm.py",
+    "original_sha256": "17a71f98a6f89ae826b17de5fc83024833ff07bc6e662b280649d437dab730b2",
+    "export_sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/api/routers/knowledge.py",
+    "export": "overrides/desktop/deeptutor/api/routers/knowledge.py",
+    "original_sha256": "49b976940cd9384457f41fab81d917dd9dfdb2de4d7ff70f788dc42eb15db913",
+    "export_sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/api/routers/reading.py",
+    "export": "overrides/desktop/deeptutor/api/routers/reading.py",
+    "original_sha256": "a51c062df3a4fe92ffb7a3016844c0f6665e846ddb309c1a93e491641a7508a4",
+    "export_sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/capabilities/reading/capability.py",
+    "export": "overrides/desktop/deeptutor/capabilities/reading/capability.py",
+    "original_sha256": "f972a5c03fcea3fd842ccab0cdf77f803b3d297b5b3734a2a6f5a53a7ab1b208",
+    "export_sha256": "8cb18d8f205735b9d334da82cd30e8f803d877df5d9e41e2898fc826c0a47def",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/capabilities/reading/tools.py",
+    "export": "overrides/desktop/deeptutor/capabilities/reading/tools.py",
+    "original_sha256": "97a45acb7638e26c55bd06ab026a0533558b0a181aba3f3caf8938c09a6d6432",
+    "export_sha256": "7a02fd088155c7ea108c0fb26ed225596b0368f45349b90d63941dae2cdeb6ba",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/knowledge/add_documents.py",
+    "export": "overrides/desktop/deeptutor/knowledge/add_documents.py",
+    "original_sha256": "3a9784e02f7fa878e41bcb65e91cb260e7a4fa9160056bd1a7ac63e760c72f75",
+    "export_sha256": "04c9240a5bfe049f15392071ff8d0d7d6579e526c4e5db91a3da23ea7e6511a3",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/knowledge/initializer.py",
+    "export": "overrides/desktop/deeptutor/knowledge/initializer.py",
+    "original_sha256": "45b91eb1d55d47b0477abbe2c147091143a2c1934fa2f2e4af8453003cc643ac",
+    "export_sha256": "1ea89e03992ecb50e1b3bb6c47933d55da9d8c91e5a8d46db8f28ec0652ab1e2",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/reading/extract.py",
+    "export": "overrides/desktop/deeptutor/reading/extract.py",
+    "original_sha256": "2cb1e8e979118a07c53e5ba25dc8627d6676c682bdf03099d0b3e02a770f93a4",
+    "export_sha256": "3f3030d6ba962819b44594c1fad4256b7f8ac95802c132813dc9253a6747e07a",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/reading/knowledge_sync.py",
+    "export": "overrides/desktop/deeptutor/reading/knowledge_sync.py",
+    "original_sha256": "2282a261446dca269d66988a71bdfae3a37f2e6dd6993b0a9e610a988e72d1ad",
+    "export_sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/reading/native_ocr.py",
+    "export": "overrides/desktop/deeptutor/reading/native_ocr.py",
+    "original_sha256": "83a5ffa7f29ebfb4b19db17a64c42080366b6186d69599ad6903e4e971875ace",
+    "export_sha256": "8dcc2292ccf1880d652a70f145fa224d83a0427ad50cd47f11e6ac6808f0a5e9",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/reading/store.py",
+    "export": "overrides/desktop/deeptutor/reading/store.py",
+    "original_sha256": "5ce89d34335366198e8ddfccfc1ae6873a7db6b2154618f73080db32dba55ea8",
+    "export_sha256": "9aaa563894af69052417608a0a17a68aef1a285550af5abfac6dcf4042dd7c52",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop/deeptutor/services/model_selection/llm.py",
+    "export": "overrides/desktop/deeptutor/services/model_selection/llm.py",
+    "original_sha256": "17a71f98a6f89ae826b17de5fc83024833ff07bc6e662b280649d437dab730b2",
+    "export_sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/components/chat/home/ChatComposer.tsx",
+    "export": "overrides/frontend/web/components/chat/home/ChatComposer.tsx",
+    "original_sha256": "4da2de7075a0a90b3542e9ff046708ef107b3c283d50231b1cce380a24d05b20",
+    "export_sha256": "043677523056005e8465dad19a36be4582464aae3cf35f5eed9d505810cce520",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/components/chat/home/ModelSelector.tsx",
+    "export": "overrides/frontend/web/components/chat/home/ModelSelector.tsx",
+    "original_sha256": "576948a4664c2bb5faa14b15b281e59569b72e1fd1e3aeec7985a56ca7b09614",
+    "export_sha256": "7142d83e31654bf58218f442393dec2d4e73ec1e5ba1b1dfac35392143bae154",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/components/chat/home/ReasoningEffortSelector.tsx",
+    "export": "overrides/frontend/web/components/chat/home/ReasoningEffortSelector.tsx",
+    "original_sha256": "2f513aeee8138edf800cffba52d133fba79d71bddab40fd8f6c757743132a3a9",
+    "export_sha256": "6b7b0476950921e1f603f8aaf66a64b5a0753b1868056b797f6e0d76ca3ae34a",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/components/reading/workspace/ReadingComposer.tsx",
+    "export": "overrides/frontend/web/components/reading/workspace/ReadingComposer.tsx",
+    "original_sha256": "d35a4d0e583bca42d02b7a23fbc7081ef2e39fec3caeac4ff2a7d04bb84c94bc",
+    "export_sha256": "73cc4087fdfd596f18feca9a5d8c851f4c578029ab581eb38838b15c6103fa3b",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/lib/chat-reasoning.ts",
+    "export": "overrides/frontend/web/lib/chat-reasoning.ts",
+    "original_sha256": "ddd56a831ebf94f8f15285b4bbedc7c894f036f4dc018111135ffe8e6d90a4b6",
+    "export_sha256": "8d4a78eee0cc0646aac92c351ede06977d37ea49bf482177cb4165cf0da9f252",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/lib/llm-options.ts",
+    "export": "overrides/frontend/web/lib/llm-options.ts",
+    "original_sha256": "edc5c24637e144c26d126457a08ff2d8ba2154859204c2adb0808e11843a7acc",
+    "export_sha256": "ac49da84d83eb4550324cd4031b90dc670b233ab59afe0db1863f8616f30928e",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-frontend/web/tests/chat-reasoning-selector.spec.tsx",
+    "export": "overrides/frontend/web/tests/chat-reasoning-selector.spec.tsx",
+    "original_sha256": "6555aa16e841a6adf91bb30e77e467eff48534d2073892798a5593dc7507415f",
+    "export_sha256": "ffb35b4d0dd0cc6d7bf08185dec97c276e8a1b87a1276c990f45ef226062ec2a",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "installed-desktop-shell/apps/desktop/src/main.mjs",
+    "export": "overrides/desktop-shell/apps/desktop/src/main.mjs",
+    "original_sha256": "2b9768208bd9483f7475a4db1c29fc9b5fd7ad09d3cc8447de7a7265d40258b5",
+    "export_sha256": "1cfcc96e9309896efb0882a112e22ee43273f884cc4e43a0a4d72686528dee8f",
+    "kind": "complete-modified-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/patch/knowledge_sync.py",
+    "export": "archive/workspace/DeepTutor-knowledge-reading-sync/patch/knowledge_sync.py",
+    "original_sha256": "cf1feb12a11f31a3f5884057687ae0ef7d9510ef5b68a31bebf3009014e717b7",
+    "export_sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+    "kind": "complete-modified-source-archive-copy"
+  },
+  {
+    "source": "DeepTutor/sync_deepseek_account.py",
+    "export": "archive/workspace/DeepTutor/sync_deepseek_account.py",
+    "original_sha256": "342e666ded04dc2bc5f0eeec3a015af18c657f30ad40b0e146cc82a6c4d12373",
+    "export_sha256": "41ef9c5ad6956ca8607eda1cd6254c8294bcb2a6c7940e89b26345672cb54ca1",
+    "kind": "historical-adapter-authentication-generalized"
+  }
+]

@@ -1,0 +1,10 @@
+YOUR_STUDY_ROOT/
+  DeepTutor/                     # official v1.7.1 venv and private runtime home
+  Open DeepTutor-win32-x64/       # official portable application (download separately)
+  DeepTutor-learning-support/    # copy archive/workspace tools here; own private key/models
+  DeepTutor-conversion-tools/    # own venv, LibreOffice and OCR runtime
+  DeepTutor-native-ocr/          # worker.py and private configuration.json
+  DeepTutor-knowledge-reading-sync/
+
+archive/workspace preserves these sibling-directory assumptions. Absolute YOUR_NAME
+paths in historical scripts are intentionally placeholders, not a portable installer.

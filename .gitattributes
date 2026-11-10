@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.cmd text eol=lf
+*.patch text eol=lf
+*.patch -whitespace
+archive/** whitespace=-blank-at-eof
+overrides/** whitespace=-blank-at-eof

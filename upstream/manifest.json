@@ -1,0 +1,209 @@
+{
+  "upstream_repository": "https://github.com/HKUDS/DeepTutor",
+  "tag": "v1.7.1",
+  "commit": "f7aed0744c36c5afef16a4261c31ebee1208cac2",
+  "targets": {
+    "cli": {
+      "patch": "patches/cli-v1.7.1.patch",
+      "files": [
+        {
+          "path": "deeptutor/api/routers/knowledge.py",
+          "source": "overrides/cli/deeptutor/api/routers/knowledge.py",
+          "base_sha256": "3325ecc362f81b44d775844c5c4a3bde335c4c9bbd45f18a0321cdac20f321bf",
+          "sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/api/routers/reading.py",
+          "source": "overrides/cli/deeptutor/api/routers/reading.py",
+          "base_sha256": "8fc9e8a303f0350530db7bc7fe7e2263537b44e95845d817a7488f995c04e5d8",
+          "sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/knowledge/add_documents.py",
+          "source": "overrides/cli/deeptutor/knowledge/add_documents.py",
+          "base_sha256": "b4c3389e64f68a6a97a7c4d24b26f00fd88cc282d10dbc985dca289be880212e",
+          "sha256": "04c9240a5bfe049f15392071ff8d0d7d6579e526c4e5db91a3da23ea7e6511a3",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/knowledge/initializer.py",
+          "source": "overrides/cli/deeptutor/knowledge/initializer.py",
+          "base_sha256": "f91f38c41150919116598badd43d139d81f9f5925d05eb38ea5f52d41b929911",
+          "sha256": "1ea89e03992ecb50e1b3bb6c47933d55da9d8c91e5a8d46db8f28ec0652ab1e2",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/reading/knowledge_sync.py",
+          "source": "overrides/cli/deeptutor/reading/knowledge_sync.py",
+          "base_sha256": null,
+          "sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/runtime/launcher.py",
+          "source": "overrides/cli/deeptutor/runtime/launcher.py",
+          "base_sha256": "0cad7a53404347b4cae0fce07bab195ea99851e4f12ec286c8b8bf569d6ac7ec",
+          "sha256": "25a972151aa05ba1c7a93401e2eefd21cd95f2d9000fe54ce19e7155866a1b19",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/services/model_selection/llm.py",
+          "source": "overrides/cli/deeptutor/services/model_selection/llm.py",
+          "base_sha256": "631d9f80acbd59ca2579d70338a35f5224e4e54406baee5b2b3967fb8da11c2d",
+          "sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "desktop": {
+      "patch": "patches/desktop-v1.7.1.patch",
+      "files": [
+        {
+          "path": "deeptutor/api/routers/knowledge.py",
+          "source": "overrides/desktop/deeptutor/api/routers/knowledge.py",
+          "base_sha256": "3325ecc362f81b44d775844c5c4a3bde335c4c9bbd45f18a0321cdac20f321bf",
+          "sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/api/routers/reading.py",
+          "source": "overrides/desktop/deeptutor/api/routers/reading.py",
+          "base_sha256": "8fc9e8a303f0350530db7bc7fe7e2263537b44e95845d817a7488f995c04e5d8",
+          "sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/capabilities/reading/capability.py",
+          "source": "overrides/desktop/deeptutor/capabilities/reading/capability.py",
+          "base_sha256": "45b7f1665bb608b757fc3ede0703876a580689f620962ef17049e628313f7e6d",
+          "sha256": "8cb18d8f205735b9d334da82cd30e8f803d877df5d9e41e2898fc826c0a47def",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/capabilities/reading/tools.py",
+          "source": "overrides/desktop/deeptutor/capabilities/reading/tools.py",
+          "base_sha256": "1788f9e2b9329ea8068de7312bcce369c90f6c7f4ae34b75d6da6a8a633cd89d",
+          "sha256": "7a02fd088155c7ea108c0fb26ed225596b0368f45349b90d63941dae2cdeb6ba",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/knowledge/add_documents.py",
+          "source": "overrides/desktop/deeptutor/knowledge/add_documents.py",
+          "base_sha256": "b4c3389e64f68a6a97a7c4d24b26f00fd88cc282d10dbc985dca289be880212e",
+          "sha256": "04c9240a5bfe049f15392071ff8d0d7d6579e526c4e5db91a3da23ea7e6511a3",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/knowledge/initializer.py",
+          "source": "overrides/desktop/deeptutor/knowledge/initializer.py",
+          "base_sha256": "f91f38c41150919116598badd43d139d81f9f5925d05eb38ea5f52d41b929911",
+          "sha256": "1ea89e03992ecb50e1b3bb6c47933d55da9d8c91e5a8d46db8f28ec0652ab1e2",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/reading/extract.py",
+          "source": "overrides/desktop/deeptutor/reading/extract.py",
+          "base_sha256": "54c51ac2db1922243250202be79bc2d162a7325b7d846c76d4a21534547bbd23",
+          "sha256": "3f3030d6ba962819b44594c1fad4256b7f8ac95802c132813dc9253a6747e07a",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/reading/knowledge_sync.py",
+          "source": "overrides/desktop/deeptutor/reading/knowledge_sync.py",
+          "base_sha256": null,
+          "sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/reading/native_ocr.py",
+          "source": "overrides/desktop/deeptutor/reading/native_ocr.py",
+          "base_sha256": null,
+          "sha256": "8dcc2292ccf1880d652a70f145fa224d83a0427ad50cd47f11e6ac6808f0a5e9",
+          "license": "AGPL-3.0-or-later"
+        },
+        {
+          "path": "deeptutor/reading/store.py",
+          "source": "overrides/desktop/deeptutor/reading/store.py",
+          "base_sha256": "4a917d0323ade08c4ebdb2be8c7ee20cdbb48d8b7076ca84fb6d7198925554c4",
+          "sha256": "9aaa563894af69052417608a0a17a68aef1a285550af5abfac6dcf4042dd7c52",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/services/model_selection/llm.py",
+          "source": "overrides/desktop/deeptutor/services/model_selection/llm.py",
+          "base_sha256": "631d9f80acbd59ca2579d70338a35f5224e4e54406baee5b2b3967fb8da11c2d",
+          "sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "frontend": {
+      "patch": "patches/frontend-v1.7.1.patch",
+      "files": [
+        {
+          "path": "web/components/chat/home/ChatComposer.tsx",
+          "source": "overrides/frontend/web/components/chat/home/ChatComposer.tsx",
+          "base_sha256": "c382acdf3789cbb8df61dbc382107e8f8887c4d60a97437772791e8fc5a3039e",
+          "sha256": "043677523056005e8465dad19a36be4582464aae3cf35f5eed9d505810cce520",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/components/chat/home/ModelSelector.tsx",
+          "source": "overrides/frontend/web/components/chat/home/ModelSelector.tsx",
+          "base_sha256": "fc17a9b1b289c46a7045d368063851c4999a5af4754ccccb37f7e076e2d3580c",
+          "sha256": "7142d83e31654bf58218f442393dec2d4e73ec1e5ba1b1dfac35392143bae154",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/components/chat/home/ReasoningEffortSelector.tsx",
+          "source": "overrides/frontend/web/components/chat/home/ReasoningEffortSelector.tsx",
+          "base_sha256": null,
+          "sha256": "6b7b0476950921e1f603f8aaf66a64b5a0753b1868056b797f6e0d76ca3ae34a",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/components/reading/workspace/ReadingComposer.tsx",
+          "source": "overrides/frontend/web/components/reading/workspace/ReadingComposer.tsx",
+          "base_sha256": "8fd874784596eb9b8837c410a3c302c4b544315e2c1256b93b3417bbe6ad60ae",
+          "sha256": "73cc4087fdfd596f18feca9a5d8c851f4c578029ab581eb38838b15c6103fa3b",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/lib/chat-reasoning.ts",
+          "source": "overrides/frontend/web/lib/chat-reasoning.ts",
+          "base_sha256": null,
+          "sha256": "8d4a78eee0cc0646aac92c351ede06977d37ea49bf482177cb4165cf0da9f252",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/lib/llm-options.ts",
+          "source": "overrides/frontend/web/lib/llm-options.ts",
+          "base_sha256": "9347b2afba59f8da471218fead471c5856936048892ef540ad45af48f9450eed",
+          "sha256": "ac49da84d83eb4550324cd4031b90dc670b233ab59afe0db1863f8616f30928e",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/tests/chat-reasoning-selector.spec.tsx",
+          "source": "overrides/frontend/web/tests/chat-reasoning-selector.spec.tsx",
+          "base_sha256": null,
+          "sha256": "ffb35b4d0dd0cc6d7bf08185dec97c276e8a1b87a1276c990f45ef226062ec2a",
+          "license": "Apache-2.0"
+        }
+      ]
+    },
+    "desktop-shell": {
+      "patch": "patches/desktop-shell-v1.7.1.patch",
+      "files": [
+        {
+          "path": "apps/desktop/src/main.mjs",
+          "source": "overrides/desktop-shell/apps/desktop/src/main.mjs",
+          "base_sha256": "9df9a24104c84a885a91b4355b8cb9850200bef6d962659a344406dcd5595169",
+          "sha256": "1cfcc96e9309896efb0882a112e22ee43273f884cc4e43a0a4d72686528dee8f",
+          "license": "Apache-2.0"
+        }
+      ]
+    }
+  }
+}

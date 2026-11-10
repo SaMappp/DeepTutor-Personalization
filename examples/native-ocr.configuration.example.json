@@ -1,0 +1,30 @@
+{
+  "python": "C:\\Users\\YOUR_NAME\\Documents\\ChatGPT\\Academic learning\\DeepTutor\\.venv\\Scripts\\python.exe",
+  "worker": "C:\\Users\\YOUR_NAME\\Documents\\ChatGPT\\Academic learning\\DeepTutor-native-ocr\\worker.py",
+  "tool_root": "C:\\Users\\YOUR_NAME\\Documents\\ChatGPT\\Academic learning\\DeepTutor-conversion-tools\\pdf-textbook-tool",
+  "cache_root": "C:\\Users\\YOUR_NAME\\Documents\\ChatGPT\\Academic learning\\DeepTutor-native-ocr\\cache",
+  "shared_cache_root": "C:\\Users\\YOUR_NAME\\Documents\\ChatGPT\\Academic learning\\DeepTutor-conversion-tools\\pdf-textbook-tool\\cache",
+  "engine": {
+    "engine": "RapidOCR",
+    "version": "1.2.3",
+    "parameters": {
+      "dpi": 300,
+      "detection_max_side": 1536,
+      "detection_limit_type": "max",
+      "angle_classifier": false,
+      "text_score": 0.35,
+      "onnx_intra_threads": 1,
+      "onnx_inter_threads": 1
+    },
+    "models": {
+      "ch_PP-OCRv3_det_infer.onnx": "3439588c030faea393a54515f51e983d8e155b19a2e8aba7891934c1cf0de526",
+      "ch_PP-OCRv3_rec_infer.onnx": "897a3ededb38fee0dae2c1ccee38241f37df202c9509e3abca02e9217c5ee615"
+    },
+    "onnxruntime": "1.31.1",
+    "pymupdf": "('2.1', '1.28.6')",
+    "text_layer_version": 2,
+    "font_sha256": "d79c55e68b1131eea0cc1c47be4f572d964f28c682e143db2ad09c1e4cb07a3f",
+    "id": "1defce0f1535821d8be166c04959c2f8601bd3f0c48f834ccc3f510725890236"
+  },
+  "root": "C:\\Users\\YOUR_NAME\\Documents\\ChatGPT\\Academic learning\\DeepTutor-native-ocr"
+}
