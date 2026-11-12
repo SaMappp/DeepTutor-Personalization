@@ -387,9 +387,9 @@
   {
     "source": "DeepTutor-native-ocr/使用说明与验证记录.md",
     "export": "archive/workspace/DeepTutor-native-ocr/使用说明与验证记录.md",
-    "original_sha256": "024bc0a7dea3df7c1a39ccc1b0d8a02aaeaa7fcee816b007072a27d44da90864",
-    "export_sha256": "1df64b7af19d77d97c6d4d42eb6076503cb369443a8572df64c07bff9d9f6c7f",
-    "kind": "sanitized-historical-source"
+    "original_sha256": "f08d727fe22e4a9bb46489733739407e9273acc01b87041c72bf51152a293a82",
+    "export_sha256": "a080e6fc20176b329700d892ae8580905030cc4663854c17293a1b55b07f73a8",
+    "kind": "sanitized-verified-scope-fix-source"
   },
   {
     "source": "DeepTutor-knowledge-reading-sync/backfill.py",
@@ -656,5 +656,19 @@
     "original_sha256": "342e666ded04dc2bc5f0eeec3a015af18c657f30ad40b0e146cc82a6c4d12373",
     "export_sha256": "41ef9c5ad6956ca8607eda1cd6254c8294bcb2a6c7940e89b26345672cb54ca1",
     "kind": "historical-adapter-authentication-generalized"
+  },
+  {
+    "source": "DeepTutor-native-ocr/test_document_access.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/test_document_access.py",
+    "original_sha256": "07080e30712516eaeceaabe41c0ca7aa1e967fe50ea0e72713c2655cefbd19ef",
+    "export_sha256": "2ab1ae87a3228caf770cd994580c2110b629389ac13622b9f1d4b37b91b30d59",
+    "kind": "sanitized-verified-scope-fix-source"
+  },
+  {
+    "source": "DeepTutor-native-ocr/deploy_document_fix.py",
+    "export": "archive/workspace/DeepTutor-native-ocr/deploy_document_fix.py",
+    "original_sha256": "527b1f420776473924d8712b56339162404fef3b74e82c4571e83dd207c54d85",
+    "export_sha256": "947e3e97a2df870bde6dcfef0c7a250dd8c107a61abe8a359201797b37214d53",
+    "kind": "sanitized-verified-scope-fix-source"
   }
 ]

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+# Modified by SaMappp for native reading; see NOTICE and docs/CHANGE_INVENTORY.md.
 """Tools the immersive-reading capability mounts on the chat loop.
 
 Two families, and the split matters:
@@ -364,20 +364,18 @@ class ReadMaterialTool(_ReadingToolBase):
 
         store = self._store()
         manifest = await asyncio.to_thread(store.manifest, material_id)
+        deferred_pages = []
         if manifest.render_mode == "pdf":
             from deeptutor.reading import parse_locators
-            from deeptutor.reading.native_ocr import ensure_page
+            from deeptutor.reading.native_ocr import prepare_tool_pages
 
             binding = kwargs.get(BINDING_KWARG) or {}
             if binding.get("native_ocr_error"):
                 return self._failure(binding["native_ocr_error"])
             wanted = parse_locators(spec, manifest.unit_count)
             scope = binding.get("native_ocr_scope")
-            if scope and (scope.get("material_id") != material_id or
-                          any(page not in scope["pages"] for page in wanted)):
-                return self._failure("本轮仅允许读取用户请求的 PDF 页码；请直接讲解已准备的页面，不要扩大 OCR 范围。")
-            for page in wanted:
-                await asyncio.to_thread(ensure_page, store, material_id, page)
+            spec = await prepare_tool_pages(store, material_id, wanted, scope, binding.get("native_ocr_stream"))
+            deferred_pages = wanted[len(spec):]
         rendered = await asyncio.to_thread(render_units, store, material_id, spec)
 
         if rendered.is_empty:
@@ -412,6 +410,8 @@ class ReadMaterialTool(_ReadingToolBase):
                 else "prose as [p.N]."
             )
         )
+        if deferred_pages:
+            followup += f"\n本批达到上下文预算；尚未读取的后续页从 {deferred_pages[0]} 开始，请继续分批 read_material，无需重新上传文件。"
         return ToolResult(
             content=rendered.text + timing + media_note + followup,
             sources=[

@@ -85,7 +85,7 @@
           "path": "deeptutor/capabilities/reading/tools.py",
           "source": "overrides/desktop/deeptutor/capabilities/reading/tools.py",
           "base_sha256": "1788f9e2b9329ea8068de7312bcce369c90f6c7f4ae34b75d6da6a8a633cd89d",
-          "sha256": "7a02fd088155c7ea108c0fb26ed225596b0368f45349b90d63941dae2cdeb6ba",
+          "sha256": "31826d7456be69679741c12abf45628f904ace858b6fd8f32b0a81e16c666cde",
           "license": "Apache-2.0"
         },
         {
@@ -120,7 +120,14 @@
           "path": "deeptutor/reading/native_ocr.py",
           "source": "overrides/desktop/deeptutor/reading/native_ocr.py",
           "base_sha256": null,
-          "sha256": "8dcc2292ccf1880d652a70f145fa224d83a0427ad50cd47f11e6ac6808f0a5e9",
+          "sha256": "eb278aa69cee4ebffe5fa293708d2cfe2fecd96b89c6c3a2f90f85ba4c535aec",
+          "license": "AGPL-3.0-or-later"
+        },
+        {
+          "path": "deeptutor/reading/page_scope.py",
+          "source": "overrides/desktop/deeptutor/reading/page_scope.py",
+          "base_sha256": null,
+          "sha256": "20a1d82912085f49f05a048dd0432cc7a476a8c49391f371ba8eabd0bb2db8a8",
           "license": "AGPL-3.0-or-later"
         },
         {

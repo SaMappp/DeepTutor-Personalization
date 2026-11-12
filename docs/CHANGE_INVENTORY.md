@@ -31,6 +31,7 @@
 | [deeptutor/reading/extract.py](../overrides/desktop/deeptutor/reading/extract.py) | 修改 |
 | [deeptutor/reading/knowledge_sync.py](../overrides/desktop/deeptutor/reading/knowledge_sync.py) | 新增 |
 | [deeptutor/reading/native_ocr.py](../overrides/desktop/deeptutor/reading/native_ocr.py) | 新增 |
+| [deeptutor/reading/page_scope.py](../overrides/desktop/deeptutor/reading/page_scope.py) | 新增；全文/章节与单页 OCR 范围判断 |
 | [deeptutor/reading/store.py](../overrides/desktop/deeptutor/reading/store.py) | 修改 |
 | [deeptutor/services/model_selection/llm.py](../overrides/desktop/deeptutor/services/model_selection/llm.py) | 修改 |
 
@@ -57,6 +58,8 @@
 | [apps/desktop/src/main.mjs](../overrides/desktop-shell/apps/desktop/src/main.mjs) | 修改 |
 
 ## 历史脚本与说明
+
+2026-11-12 新增范围回归：[test_reading_scope.py](../tests/test_reading_scope.py)。真实阅读能力的合成 PDF 集成验收源码及定向部署脚本分别保存在 [test_document_access.py](../archive/workspace/DeepTutor-native-ocr/test_document_access.py) 和 [deploy_document_fix.py](../archive/workspace/DeepTutor-native-ocr/deploy_document_fix.py)。后两者依赖已配置的 Windows 桌面运行时；私人验收材料和会话不分发。
 
 `archive/workspace/` 保留原同级目录关系。下表列出公开副本；实际课程文件、账号数据与原始验证输出不在归档。
 
