@@ -22,6 +22,10 @@
 
 | 完整公开源码 | 对官方基线 |
 |---|---|
+| [deeptutor/agents/loop/pipeline.py](../overrides/desktop/deeptutor/agents/loop/pipeline.py) | 修改；恢复普通聊天按需原文读取 |
+| [deeptutor/capabilities/explore_context/capability.py](../overrides/desktop/deeptutor/capabilities/explore_context/capability.py) | 修改；复用同分支调查并保留首次调查 |
+| [deeptutor/capabilities/explore_context/reuse.py](../overrides/desktop/deeptutor/capabilities/explore_context/reuse.py) | 新增；私有有界缓存与资料/身份校验 |
+| [deeptutor/services/session/turns/executor.py](../overrides/desktop/deeptutor/services/session/turns/executor.py) | 修改；提供可靠祖先消息身份 |
 | [deeptutor/api/routers/knowledge.py](../overrides/desktop/deeptutor/api/routers/knowledge.py) | 修改 |
 | [deeptutor/api/routers/reading.py](../overrides/desktop/deeptutor/api/routers/reading.py) | 修改 |
 | [deeptutor/capabilities/reading/capability.py](../overrides/desktop/deeptutor/capabilities/reading/capability.py) | 修改 |

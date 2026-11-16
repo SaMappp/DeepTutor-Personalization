@@ -670,5 +670,54 @@
     "original_sha256": "527b1f420776473924d8712b56339162404fef3b74e82c4571e83dd207c54d85",
     "export_sha256": "947e3e97a2df870bde6dcfef0c7a250dd8c107a61abe8a359201797b37214d53",
     "kind": "sanitized-verified-scope-fix-source"
+  },
+  {
+    "source": "DeepTutor-context-reuse/patch/deeptutor/agents/loop/pipeline.py",
+    "export": "overrides/desktop/deeptutor/agents/loop/pipeline.py",
+    "original_sha256": "7ff6c28b24fec435de71833ac1ab5f7bba53f4a6eeabf96a4bf560ef93b426dd",
+    "export_sha256": "0cbb39a29169f9f3495409e307db6354bb5e92ded7d7f578d9d7bc30094370ea",
+    "kind": "verified-context-reuse-source"
+  },
+  {
+    "source": "DeepTutor-context-reuse/patch/deeptutor/capabilities/explore_context/capability.py",
+    "export": "overrides/desktop/deeptutor/capabilities/explore_context/capability.py",
+    "original_sha256": "b0b5451cf05b03c03410c9e66f9508964262552244ff218df38f890442595f91",
+    "export_sha256": "074d75110ee21616ca915fe7cf919c677d332c3657b4a2bae285303828c1ebb4",
+    "kind": "verified-context-reuse-source"
+  },
+  {
+    "source": "DeepTutor-context-reuse/patch/deeptutor/capabilities/explore_context/reuse.py",
+    "export": "overrides/desktop/deeptutor/capabilities/explore_context/reuse.py",
+    "original_sha256": "d08517e138a377c548bccc3eb17d90ef8482977d9d633591869ee4f3415cc42e",
+    "export_sha256": "e1ea949a3a51a2351dd4c0955f6f3dca332de37ca5e6c10b9eeafe7840d43529",
+    "kind": "verified-context-reuse-source"
+  },
+  {
+    "source": "DeepTutor-context-reuse/patch/deeptutor/services/session/turns/executor.py",
+    "export": "overrides/desktop/deeptutor/services/session/turns/executor.py",
+    "original_sha256": "07b0e7f908bf7d32c6ef492f7ee204f043553153b3f9e52418fcac83ec466742",
+    "export_sha256": "2ae583a6713b4bdbbdd9e0360dadb4ac989b145edfbb10c7add5e8b8a61b3163",
+    "kind": "verified-context-reuse-source"
+  },
+  {
+    "source": "DeepTutor-context-reuse/test_reuse.py",
+    "export": "tools/check_context_reuse.py",
+    "original_sha256": "42b1c00cd6bad9fcb1185fc427a142f1af259a13eee29e8a8ccde2cdb0a7b2a2",
+    "export_sha256": "3023bbafa7cc9a1bea9e66ca73d73a173cd23ff5f190ab7acc0b8fca66cfaa34",
+    "kind": "portable-context-reuse-integration-tests"
+  },
+  {
+    "source": "DeepTutor-context-reuse/deploy.py",
+    "export": "archive/workspace/DeepTutor-context-reuse/deploy.py",
+    "original_sha256": "666228f9e042ff2672b4b8902881910a2cc56db1f3d95b9e1200dbde393f1661",
+    "export_sha256": "e8f72c5861ca911b1b68365df1f6fbdf46493252797df4111abcb39988143d9b",
+    "kind": "sanitized-context-reuse-tooling"
+  },
+  {
+    "source": "DeepTutor-context-reuse/live_check.py",
+    "export": "archive/workspace/DeepTutor-context-reuse/live_check.py",
+    "original_sha256": "018918647a8544c93b980bb52033cbeafe7e8694e900487354e481337ef12145",
+    "export_sha256": "778b2f4f22c9d91e457187a0f60fb989587d496df12e26350b74a7b1f839ae52",
+    "kind": "sanitized-context-reuse-tooling"
   }
 ]

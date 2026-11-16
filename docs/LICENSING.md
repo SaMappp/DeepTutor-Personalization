@@ -5,6 +5,7 @@
 | 范围 | 许可／说明 |
 |---|---|
 | 上游 DeepTutor 衍生文件、相应补丁中的原有内容 | Apache-2.0；保留原署名，附修改声明 |
+| 上下文调查复用四模块、合成测试与参数化维护脚本 | Apache-2.0；无需新增 PDF/OCR 依赖 |
 | 新增原生 OCR 与任务范围模块 `overrides/desktop/deeptutor/reading/native_ocr.py`、`page_scope.py` | AGPL-3.0-or-later |
 | `archive/workspace/DeepTutor-conversion-tools/`、`DeepTutor-native-ocr/`、`DeepTutor-learning-support/` 新增独立工具 | AGPL-3.0-or-later，文件头及相应目录 LICENSE 标记 |
 | 其他本仓库新增源码、整理文档及配置示例 | Apache-2.0，除非文件另有声明 |

@@ -61,6 +61,13 @@
       "patch": "patches/desktop-v1.7.1.patch",
       "files": [
         {
+          "path": "deeptutor/agents/loop/pipeline.py",
+          "source": "overrides/desktop/deeptutor/agents/loop/pipeline.py",
+          "base_sha256": "8eda0547b8f23e6c579d3125fae576d19627474e2a8587a772e4984dcb900d9e",
+          "sha256": "0cbb39a29169f9f3495409e307db6354bb5e92ded7d7f578d9d7bc30094370ea",
+          "license": "Apache-2.0"
+        },
+        {
           "path": "deeptutor/api/routers/knowledge.py",
           "source": "overrides/desktop/deeptutor/api/routers/knowledge.py",
           "base_sha256": "3325ecc362f81b44d775844c5c4a3bde335c4c9bbd45f18a0321cdac20f321bf",
@@ -72,6 +79,20 @@
           "source": "overrides/desktop/deeptutor/api/routers/reading.py",
           "base_sha256": "8fc9e8a303f0350530db7bc7fe7e2263537b44e95845d817a7488f995c04e5d8",
           "sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/capabilities/explore_context/capability.py",
+          "source": "overrides/desktop/deeptutor/capabilities/explore_context/capability.py",
+          "base_sha256": "23781cc5dfef76b395f876fa763e4e0d3d8acdea808fddc20c2b7a6c06be3553",
+          "sha256": "074d75110ee21616ca915fe7cf919c677d332c3657b4a2bae285303828c1ebb4",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/capabilities/explore_context/reuse.py",
+          "source": "overrides/desktop/deeptutor/capabilities/explore_context/reuse.py",
+          "base_sha256": null,
+          "sha256": "e1ea949a3a51a2351dd4c0955f6f3dca332de37ca5e6c10b9eeafe7840d43529",
           "license": "Apache-2.0"
         },
         {
@@ -142,6 +163,13 @@
           "source": "overrides/desktop/deeptutor/services/model_selection/llm.py",
           "base_sha256": "631d9f80acbd59ca2579d70338a35f5224e4e54406baee5b2b3967fb8da11c2d",
           "sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/services/session/turns/executor.py",
+          "source": "overrides/desktop/deeptutor/services/session/turns/executor.py",
+          "base_sha256": "fd0bfd8b82b4e464b4fb52fa0588639edd7749123209ca7299066ff6151e25be",
+          "sha256": "2ae583a6713b4bdbbdd9e0360dadb4ac989b145edfbb10c7add5e8b8a61b3163",
           "license": "Apache-2.0"
         }
       ]
