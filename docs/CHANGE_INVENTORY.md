@@ -2,6 +2,12 @@
 
 以官方 v1.7.1 commit `f7aed0744c36c5afef16a4261c31ebee1208cac2` 为唯一基线。基线字节哈希与导出源码哈希见 `upstream/manifest.json`。CLI 与桌面后端为替代目标；前端和桌面壳是另外的组件。
 
+## 阅读资料排序
+
+- CLI 和桌面后端的 `api/routers/knowledge.py` 与 `reading/knowledge_sync.py` 按上传批次顺序同步。两版 `reading/store.py` 在 Windows 暂时拒绝发布资料目录时重试。
+- 前端的 `ReadingBar.tsx`、`ReadingWorkspace.tsx` 和 `ReadingMaterialOrderDialog.tsx` 提供调整与保存。共用下拉菜单 `LocationCrumbs.tsx`、`reading-workspace-api.ts` 及中英文文案接入原有排序接口。
+- `tools/check_reading_order.py` 使用合成资料复现短暂发布失败，验证批次顺序、手动顺序与阅读进度保留。
+
 ## cli
 
 补丁：`patches/cli-v1.7.1.patch`

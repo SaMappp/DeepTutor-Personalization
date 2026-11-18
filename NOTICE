@@ -13,6 +13,8 @@ Maintenance verified 2026-11-12: document/section reading scope, native-text acc
 independent of OCR budgets, lazy scanned-page preparation and regression coverage.
 Maintenance verified 2026-11-16: branch-scoped source investigation reuse, private
 bounded caching, on-demand source access and isolated regression coverage.
+Maintenance verified 2026-11-18: persistent reading material order, ordered
+knowledge uploads and bounded retry of a Windows reading-directory publish.
 Modified upstream files have prominent comments; patches and manifest identify every changed path.
 New independent PDF/OCR and learning-support tools use AGPL-3.0-or-later as identified by headers.
 This is not an official DeepTutor release or endorsement, and grants no trademark rights.

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+# Modified by SaMappp for reading material order; see NOTICE.
 """Local, additive KB-to-reader synchronization in the current account/workspace.
 
 No model calls, embeddings, captions, OCR or deletions are performed here.
@@ -7,6 +7,7 @@ Knowledge indexes and original source documents are never modified.
 """
 from __future__ import annotations
 
+from collections.abc import Sequence
 from contextlib import contextmanager
 import hashlib
 import logging
@@ -83,10 +84,23 @@ def _hash(path: Path) -> str:
     return h.hexdigest()[:16]
 
 
-def _sync_kb(kb_root: Path, *, catalog: ReadingCatalogStore, force: bool = False) -> dict:
+def _sync_kb(
+    kb_root: Path,
+    *,
+    catalog: ReadingCatalogStore,
+    force: bool = False,
+    uploaded_paths: Sequence[str] = (),
+) -> dict:
     kb_root = kb_root.resolve()
     raw = kb_root / 'raw'
     paths = _source_files(raw)
+    # Use only files already validated under raw/. The upload batch provides
+    # their order, while a recovery scan has only the fallback filename order.
+    by_relative_path = {path.relative_to(raw).as_posix(): path for path in paths}
+    uploaded = dict.fromkeys(path for path in uploaded_paths if path in by_relative_path)
+    paths = [by_relative_path[path] for path in uploaded] + [
+        path for relative, path in by_relative_path.items() if relative not in uploaded
+    ]
     result = {'knowledge_base': kb_root.name, 'collection_id': '', 'added': 0,
               'reused': 0, 'failed': [], 'documents': len(paths)}
     if not paths:
@@ -204,7 +218,7 @@ def sync_visible_knowledge(*, force: bool = False) -> dict:
         return answer
 
 
-def sync_saved_documents(raw_dir: Path | str) -> dict:
+def sync_saved_documents(raw_dir: Path | str, *, uploaded_paths: Sequence[str] = ()) -> dict:
     """Upload hook: resolve the actual KB owner, never trust a caller path/id.
 
     Failure does not undo a successfully saved knowledge upload. The next
@@ -224,7 +238,9 @@ def sync_saved_documents(raw_dir: Path | str) -> dict:
                 return {'skipped': 'reading uploads are restricted'}
             catalog = ReadingCatalogStore()
             with _lock(catalog.root):
-                result = _sync_kb(raw.parent, catalog=catalog, force=True)
+                result = _sync_kb(
+                    raw.parent, catalog=catalog, force=True, uploaded_paths=uploaded_paths
+                )
                 _RECENT.pop(str(catalog.root.resolve()), None)
                 return result
     except Exception as exc:

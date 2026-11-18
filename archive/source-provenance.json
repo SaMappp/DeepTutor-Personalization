@@ -462,11 +462,11 @@
     "kind": "sanitized-historical-source"
   },
   {
-    "source": "installed-cli/deeptutor/api/routers/knowledge.py",
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/patch/cli/deeptutor/api/routers/knowledge.py",
     "export": "overrides/cli/deeptutor/api/routers/knowledge.py",
-    "original_sha256": "49b976940cd9384457f41fab81d917dd9dfdb2de4d7ff70f788dc42eb15db913",
-    "export_sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
-    "kind": "complete-modified-source"
+    "original_sha256": "7079ea1cc89e29e7dadabc50add94ffd07cfd26824580db2f55c543641740f6a",
+    "export_sha256": "1d478a4d0b2a359e67cefb21e35903860bf370b36757b8248547e4dacbd4b83c",
+    "kind": "verified-reading-order-source"
   },
   {
     "source": "installed-cli/deeptutor/api/routers/reading.py",
@@ -490,11 +490,11 @@
     "kind": "complete-modified-source"
   },
   {
-    "source": "installed-cli/deeptutor/reading/knowledge_sync.py",
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/patch/cli/deeptutor/reading/knowledge_sync.py",
     "export": "overrides/cli/deeptutor/reading/knowledge_sync.py",
-    "original_sha256": "2282a261446dca269d66988a71bdfae3a37f2e6dd6993b0a9e610a988e72d1ad",
-    "export_sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
-    "kind": "complete-modified-source"
+    "original_sha256": "cd8d371af5eacbc3b2c4e2866683a541ea0729e4ce97e57e87e6952e4a8ce165",
+    "export_sha256": "7be2010ddd92c3da8c90d0cbc498cb6e2c57d8ee08c10b2310cde6defa50bfca",
+    "kind": "verified-reading-order-source"
   },
   {
     "source": "installed-cli/deeptutor/runtime/launcher.py",
@@ -511,11 +511,11 @@
     "kind": "complete-modified-source"
   },
   {
-    "source": "installed-desktop/deeptutor/api/routers/knowledge.py",
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/patch/desktop/deeptutor/api/routers/knowledge.py",
     "export": "overrides/desktop/deeptutor/api/routers/knowledge.py",
-    "original_sha256": "49b976940cd9384457f41fab81d917dd9dfdb2de4d7ff70f788dc42eb15db913",
-    "export_sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
-    "kind": "complete-modified-source"
+    "original_sha256": "7079ea1cc89e29e7dadabc50add94ffd07cfd26824580db2f55c543641740f6a",
+    "export_sha256": "1d478a4d0b2a359e67cefb21e35903860bf370b36757b8248547e4dacbd4b83c",
+    "kind": "verified-reading-order-source"
   },
   {
     "source": "installed-desktop/deeptutor/api/routers/reading.py",
@@ -560,11 +560,11 @@
     "kind": "complete-modified-source"
   },
   {
-    "source": "installed-desktop/deeptutor/reading/knowledge_sync.py",
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/patch/desktop/deeptutor/reading/knowledge_sync.py",
     "export": "overrides/desktop/deeptutor/reading/knowledge_sync.py",
-    "original_sha256": "2282a261446dca269d66988a71bdfae3a37f2e6dd6993b0a9e610a988e72d1ad",
-    "export_sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
-    "kind": "complete-modified-source"
+    "original_sha256": "cd8d371af5eacbc3b2c4e2866683a541ea0729e4ce97e57e87e6952e4a8ce165",
+    "export_sha256": "7be2010ddd92c3da8c90d0cbc498cb6e2c57d8ee08c10b2310cde6defa50bfca",
+    "kind": "verified-reading-order-source"
   },
   {
     "source": "installed-desktop/deeptutor/reading/native_ocr.py",
@@ -574,11 +574,11 @@
     "kind": "complete-modified-source"
   },
   {
-    "source": "installed-desktop/deeptutor/reading/store.py",
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/patch/desktop/deeptutor/reading/store.py",
     "export": "overrides/desktop/deeptutor/reading/store.py",
-    "original_sha256": "5ce89d34335366198e8ddfccfc1ae6873a7db6b2154618f73080db32dba55ea8",
-    "export_sha256": "9aaa563894af69052417608a0a17a68aef1a285550af5abfac6dcf4042dd7c52",
-    "kind": "complete-modified-source"
+    "original_sha256": "c4ce6f56735874dd9f26ed5ee5da857cb7619e9566ccf547748489ac75184137",
+    "export_sha256": "3072965fe6dcce1d4e937a8280026f17c9899c7be92a8239bdc401286a0ff04e",
+    "kind": "verified-reading-order-source"
   },
   {
     "source": "installed-desktop/deeptutor/services/model_selection/llm.py",
@@ -719,5 +719,68 @@
     "original_sha256": "018918647a8544c93b980bb52033cbeafe7e8694e900487354e481337ef12145",
     "export_sha256": "778b2f4f22c9d91e457187a0f60fb989587d496df12e26350b74a7b1f839ae52",
     "kind": "sanitized-context-reuse-tooling"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/patch/cli/deeptutor/reading/store.py",
+    "export": "overrides/cli/deeptutor/reading/store.py",
+    "original_sha256": "e668fde5dd49b4e866d9b76a91a042378d38db1e707c30596ee4960b511c9df4",
+    "export_sha256": "d255469e4f3c1615d5c6defed620d7594b80cf359f47855ef64cb741f0fc851f",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/components/layout/LocationCrumbs.tsx",
+    "export": "overrides/frontend/web/components/layout/LocationCrumbs.tsx",
+    "original_sha256": "cdf67abfda73cd30a619067829041a7007a078954745e562db1c2f6e22e135c8",
+    "export_sha256": "640f2e0216fb8863a998023197fd196681369fce35dcb373023ac0142dca358b",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/components/reading/workspace/ReadingBar.tsx",
+    "export": "overrides/frontend/web/components/reading/workspace/ReadingBar.tsx",
+    "original_sha256": "e4e179fe60cc3255eaadc1356b22661935667cd68524bd7ea2f751604d9612b7",
+    "export_sha256": "328de8e8bf50926e53ed0c7302b644a8833087135178ec2fc27c8d28a936a4ed",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/components/reading/workspace/ReadingWorkspace.tsx",
+    "export": "overrides/frontend/web/components/reading/workspace/ReadingWorkspace.tsx",
+    "original_sha256": "f7be24078e0d15224bfd85a72a58b187a69059f55eff83bed227624ea03d1986",
+    "export_sha256": "6c235be34e9a286b91cf736f97f90dcee4840202d4f675eb675e50303b6b24c7",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/components/reading/workspace/ReadingMaterialOrderDialog.tsx",
+    "export": "overrides/frontend/web/components/reading/workspace/ReadingMaterialOrderDialog.tsx",
+    "original_sha256": "53c9701baa640a39c8eab95797d736517e7e78d3c4c475480b178f121fee7564",
+    "export_sha256": "17251cda7bc0f3a3a5fac2c2c8565a47849a5590982299f8284567ab0398383a",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/lib/reading-workspace-api.ts",
+    "export": "overrides/frontend/web/lib/reading-workspace-api.ts",
+    "original_sha256": "93aa75d872c37ef01fc4aa922221c1dbccb415e0e02a5b0d647fe49f95e1cea7",
+    "export_sha256": "3825c3be8936acb3a8dc0030cffbc8e98540e22d9ad9a909976322c01a42fc74",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/locales/en/app.json",
+    "export": "overrides/frontend/web/locales/en/app.json",
+    "original_sha256": "37760d03d0cb7383399e89654f052b60783515eeac77d385dd02ae3f5eec0304",
+    "export_sha256": "37760d03d0cb7383399e89654f052b60783515eeac77d385dd02ae3f5eec0304",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-local-ui/web/locales/zh/app.json",
+    "export": "overrides/frontend/web/locales/zh/app.json",
+    "original_sha256": "8b55ab5b16b391b60bd80e8e6d7028bd45257f85b2f78a91dda4591823785468",
+    "export_sha256": "8b55ab5b16b391b60bd80e8e6d7028bd45257f85b2f78a91dda4591823785468",
+    "kind": "verified-reading-order-source"
+  },
+  {
+    "source": "DeepTutor-knowledge-reading-sync/reading-order/test_order.py",
+    "export": "tools/check_reading_order.py",
+    "original_sha256": "4fe41d1c405962418c72c7e812127ba8037f5b8ca257d662e58ccb4f8f60c54a",
+    "export_sha256": "a3f05c9f69b0f1a6881569b2d07d6ad451b2d31cfa40bb57a8cb35bf5423c8ca",
+    "kind": "synthetic-reading-order-regression"
   }
 ]

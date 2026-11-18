@@ -10,7 +10,7 @@
           "path": "deeptutor/api/routers/knowledge.py",
           "source": "overrides/cli/deeptutor/api/routers/knowledge.py",
           "base_sha256": "3325ecc362f81b44d775844c5c4a3bde335c4c9bbd45f18a0321cdac20f321bf",
-          "sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
+          "sha256": "1d478a4d0b2a359e67cefb21e35903860bf370b36757b8248547e4dacbd4b83c",
           "license": "Apache-2.0"
         },
         {
@@ -38,7 +38,14 @@
           "path": "deeptutor/reading/knowledge_sync.py",
           "source": "overrides/cli/deeptutor/reading/knowledge_sync.py",
           "base_sha256": null,
-          "sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+          "sha256": "7be2010ddd92c3da8c90d0cbc498cb6e2c57d8ee08c10b2310cde6defa50bfca",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/reading/store.py",
+          "source": "overrides/cli/deeptutor/reading/store.py",
+          "base_sha256": "4a917d0323ade08c4ebdb2be8c7ee20cdbb48d8b7076ca84fb6d7198925554c4",
+          "sha256": "d255469e4f3c1615d5c6defed620d7594b80cf359f47855ef64cb741f0fc851f",
           "license": "Apache-2.0"
         },
         {
@@ -71,7 +78,7 @@
           "path": "deeptutor/api/routers/knowledge.py",
           "source": "overrides/desktop/deeptutor/api/routers/knowledge.py",
           "base_sha256": "3325ecc362f81b44d775844c5c4a3bde335c4c9bbd45f18a0321cdac20f321bf",
-          "sha256": "1d976678853329d2aed87ab63bee041bc09c6a3633d1dae5d503ffbc8950217b",
+          "sha256": "1d478a4d0b2a359e67cefb21e35903860bf370b36757b8248547e4dacbd4b83c",
           "license": "Apache-2.0"
         },
         {
@@ -134,7 +141,7 @@
           "path": "deeptutor/reading/knowledge_sync.py",
           "source": "overrides/desktop/deeptutor/reading/knowledge_sync.py",
           "base_sha256": null,
-          "sha256": "4594663766be4732c9a6841094e0987cd05c4fa0393e2a1525531a2ef437fe88",
+          "sha256": "7be2010ddd92c3da8c90d0cbc498cb6e2c57d8ee08c10b2310cde6defa50bfca",
           "license": "Apache-2.0"
         },
         {
@@ -155,7 +162,7 @@
           "path": "deeptutor/reading/store.py",
           "source": "overrides/desktop/deeptutor/reading/store.py",
           "base_sha256": "4a917d0323ade08c4ebdb2be8c7ee20cdbb48d8b7076ca84fb6d7198925554c4",
-          "sha256": "9aaa563894af69052417608a0a17a68aef1a285550af5abfac6dcf4042dd7c52",
+          "sha256": "3072965fe6dcce1d4e937a8280026f17c9899c7be92a8239bdc401286a0ff04e",
           "license": "Apache-2.0"
         },
         {
@@ -199,10 +206,38 @@
           "license": "Apache-2.0"
         },
         {
+          "path": "web/components/layout/LocationCrumbs.tsx",
+          "source": "overrides/frontend/web/components/layout/LocationCrumbs.tsx",
+          "base_sha256": "3c0abb5f55bb2a0a307f2611e8f1b889af3e50f0e552f174206df1cd807d2580",
+          "sha256": "640f2e0216fb8863a998023197fd196681369fce35dcb373023ac0142dca358b",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/components/reading/workspace/ReadingBar.tsx",
+          "source": "overrides/frontend/web/components/reading/workspace/ReadingBar.tsx",
+          "base_sha256": "b0f902d20480bc3b700939529632735b2913604d97054a471b900ec629d25a6a",
+          "sha256": "328de8e8bf50926e53ed0c7302b644a8833087135178ec2fc27c8d28a936a4ed",
+          "license": "Apache-2.0"
+        },
+        {
           "path": "web/components/reading/workspace/ReadingComposer.tsx",
           "source": "overrides/frontend/web/components/reading/workspace/ReadingComposer.tsx",
           "base_sha256": "8fd874784596eb9b8837c410a3c302c4b544315e2c1256b93b3417bbe6ad60ae",
           "sha256": "73cc4087fdfd596f18feca9a5d8c851f4c578029ab581eb38838b15c6103fa3b",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/components/reading/workspace/ReadingMaterialOrderDialog.tsx",
+          "source": "overrides/frontend/web/components/reading/workspace/ReadingMaterialOrderDialog.tsx",
+          "base_sha256": null,
+          "sha256": "17251cda7bc0f3a3a5fac2c2c8565a47849a5590982299f8284567ab0398383a",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/components/reading/workspace/ReadingWorkspace.tsx",
+          "source": "overrides/frontend/web/components/reading/workspace/ReadingWorkspace.tsx",
+          "base_sha256": "3918a31a5da131432459e37b239971bcf3e96ec37649a4d8a74b784ec0ba9ab9",
+          "sha256": "6c235be34e9a286b91cf736f97f90dcee4840202d4f675eb675e50303b6b24c7",
           "license": "Apache-2.0"
         },
         {
@@ -217,6 +252,27 @@
           "source": "overrides/frontend/web/lib/llm-options.ts",
           "base_sha256": "9347b2afba59f8da471218fead471c5856936048892ef540ad45af48f9450eed",
           "sha256": "ac49da84d83eb4550324cd4031b90dc670b233ab59afe0db1863f8616f30928e",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/lib/reading-workspace-api.ts",
+          "source": "overrides/frontend/web/lib/reading-workspace-api.ts",
+          "base_sha256": "31724a138789c116ed9825c281bf69e542252f4f145d85e396d10ccbc72e343f",
+          "sha256": "3825c3be8936acb3a8dc0030cffbc8e98540e22d9ad9a909976322c01a42fc74",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/locales/en/app.json",
+          "source": "overrides/frontend/web/locales/en/app.json",
+          "base_sha256": "00b2f36fc89e34dcbd5a5affd1ca717f0e8cbb74c614084f9e6ae7016b10511d",
+          "sha256": "37760d03d0cb7383399e89654f052b60783515eeac77d385dd02ae3f5eec0304",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "web/locales/zh/app.json",
+          "source": "overrides/frontend/web/locales/zh/app.json",
+          "base_sha256": "8e83a9223d0106e1722fd0db088125ee40ecf29dccec68755837f6e99142fcf2",
+          "sha256": "8b55ab5b16b391b60bd80e8e6d7028bd45257f85b2f78a91dda4591823785468",
           "license": "Apache-2.0"
         },
         {

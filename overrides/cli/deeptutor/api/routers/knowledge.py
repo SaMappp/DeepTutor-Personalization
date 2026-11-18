@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+# Modified by SaMappp for reading material order; see NOTICE.
 """
 Knowledge Base API Router
 =========================
@@ -548,7 +548,7 @@ def _save_uploaded_files(
     # Local additive bridge: reading receives the same saved original files.
     from deeptutor.reading.knowledge_sync import sync_saved_documents
 
-    sync_saved_documents(target_dir)
+    sync_saved_documents(target_dir, uploaded_paths=uploaded_files)
     return uploaded_files, uploaded_file_paths
 
 

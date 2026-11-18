@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+# Modified by SaMappp for reading material order; see NOTICE.
 """On-disk store for reading materials and their annotations.
 
 Layout, one directory per extracted content::
@@ -94,6 +94,19 @@ _ID_LENGTH = 16
 # for "1-400" cannot blow the turn's context budget. The tool reports the
 # truncation rather than silently trimming.
 MAX_READ_CHARS = 60_000
+
+
+def _publish_ingested_material(staging: Path, destination: Path) -> None:
+    # Windows scanners may briefly hold files inside a freshly written directory.
+    # Retry only the final rename, without extracting the source again.
+    for delay in (0.05, 0.1, 0.2, 0.4, None):
+        try:
+            os.replace(staging, destination)
+            return
+        except PermissionError as exc:
+            if delay is None or getattr(exc, "winerror", None) not in {5, 32, 33}:
+                raise
+            time.sleep(delay)
 
 
 def _normalise_selector_text(value: str) -> str:
@@ -434,7 +447,7 @@ class ReadingStore:
                 if material_dir.exists():
                     os.replace(material_dir, backup_dir)
                 try:
-                    os.replace(stage_dir, material_dir)
+                    _publish_ingested_material(stage_dir, material_dir)
                 except Exception:
                     if backup_dir.exists() and not material_dir.exists():
                         os.replace(backup_dir, material_dir)
