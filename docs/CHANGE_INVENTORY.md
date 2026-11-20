@@ -2,6 +2,13 @@
 
 以官方 v1.7.1 commit `f7aed0744c36c5afef16a4261c31ebee1208cac2` 为唯一基线。基线字节哈希与导出源码哈希见 `upstream/manifest.json`。CLI 与桌面后端为替代目标；前端和桌面壳是另外的组件。
 
+## 沉浸式阅读导入 PowerPoint
+
+- 两套后端的 `services/office_preview.py` 调用 LibreOffice 的 Impress 过滤器导出分页 PDF。
+- `reading/store.py` 保留上传原件，用 PDF 提供页面和文字。兼容升级时 `reading/catalog_store.py` 更新同内容的已有目录记录。
+- `api/routers/reading.py` 在工作线程入库并提供现有 PDF 页面接口。
+- `tools/check_presentation_reading.py` 使用合成课件做转换回归；`tools/upgrade_legacy_presentations.py` 支持有原件的旧库离线迁移。
+
 ## 阅读资料排序
 
 - CLI 和桌面后端的 `api/routers/knowledge.py` 与 `reading/knowledge_sync.py` 按上传批次顺序同步。两版 `reading/store.py` 在 Windows 暂时拒绝发布资料目录时重试。
@@ -18,9 +25,12 @@
 | [deeptutor/api/routers/reading.py](../overrides/cli/deeptutor/api/routers/reading.py) | 修改 |
 | [deeptutor/knowledge/add_documents.py](../overrides/cli/deeptutor/knowledge/add_documents.py) | 修改 |
 | [deeptutor/knowledge/initializer.py](../overrides/cli/deeptutor/knowledge/initializer.py) | 修改 |
+| [deeptutor/reading/catalog_store.py](../overrides/cli/deeptutor/reading/catalog_store.py) | 修改 |
 | [deeptutor/reading/knowledge_sync.py](../overrides/cli/deeptutor/reading/knowledge_sync.py) | 新增 |
+| [deeptutor/reading/store.py](../overrides/cli/deeptutor/reading/store.py) | 修改 |
 | [deeptutor/runtime/launcher.py](../overrides/cli/deeptutor/runtime/launcher.py) | 修改 |
 | [deeptutor/services/model_selection/llm.py](../overrides/cli/deeptutor/services/model_selection/llm.py) | 修改 |
+| [deeptutor/services/office_preview.py](../overrides/cli/deeptutor/services/office_preview.py) | 修改 |
 
 ## desktop
 
@@ -38,12 +48,14 @@
 | [deeptutor/capabilities/reading/tools.py](../overrides/desktop/deeptutor/capabilities/reading/tools.py) | 修改 |
 | [deeptutor/knowledge/add_documents.py](../overrides/desktop/deeptutor/knowledge/add_documents.py) | 修改 |
 | [deeptutor/knowledge/initializer.py](../overrides/desktop/deeptutor/knowledge/initializer.py) | 修改 |
+| [deeptutor/reading/catalog_store.py](../overrides/desktop/deeptutor/reading/catalog_store.py) | 修改 |
 | [deeptutor/reading/extract.py](../overrides/desktop/deeptutor/reading/extract.py) | 修改 |
 | [deeptutor/reading/knowledge_sync.py](../overrides/desktop/deeptutor/reading/knowledge_sync.py) | 新增 |
 | [deeptutor/reading/native_ocr.py](../overrides/desktop/deeptutor/reading/native_ocr.py) | 新增 |
 | [deeptutor/reading/page_scope.py](../overrides/desktop/deeptutor/reading/page_scope.py) | 新增；全文/章节与单页 OCR 范围判断 |
 | [deeptutor/reading/store.py](../overrides/desktop/deeptutor/reading/store.py) | 修改 |
 | [deeptutor/services/model_selection/llm.py](../overrides/desktop/deeptutor/services/model_selection/llm.py) | 修改 |
+| [deeptutor/services/office_preview.py](../overrides/desktop/deeptutor/services/office_preview.py) | 修改 |
 
 ## frontend
 

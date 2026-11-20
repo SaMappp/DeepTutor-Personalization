@@ -17,7 +17,7 @@
           "path": "deeptutor/api/routers/reading.py",
           "source": "overrides/cli/deeptutor/api/routers/reading.py",
           "base_sha256": "8fc9e8a303f0350530db7bc7fe7e2263537b44e95845d817a7488f995c04e5d8",
-          "sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+          "sha256": "d80b26fae2763bd995fe8f24459d15d5f64a5727264e42819da3356de2b80f78",
           "license": "Apache-2.0"
         },
         {
@@ -35,6 +35,13 @@
           "license": "Apache-2.0"
         },
         {
+          "path": "deeptutor/reading/catalog_store.py",
+          "source": "overrides/cli/deeptutor/reading/catalog_store.py",
+          "base_sha256": "375994fba85d7feacd93a6c3b8c7c328483fd7c793c212d7f03803764640d768",
+          "sha256": "bafc1c61ebef72a570db80da202b691b7caff859a9df77a5bc02917507b9fc24",
+          "license": "Apache-2.0"
+        },
+        {
           "path": "deeptutor/reading/knowledge_sync.py",
           "source": "overrides/cli/deeptutor/reading/knowledge_sync.py",
           "base_sha256": null,
@@ -45,7 +52,7 @@
           "path": "deeptutor/reading/store.py",
           "source": "overrides/cli/deeptutor/reading/store.py",
           "base_sha256": "4a917d0323ade08c4ebdb2be8c7ee20cdbb48d8b7076ca84fb6d7198925554c4",
-          "sha256": "d255469e4f3c1615d5c6defed620d7594b80cf359f47855ef64cb741f0fc851f",
+          "sha256": "b938c5e005e4a9c8e8de4b6de14618563de673a52eb001c7d0d5aa243d22beb7",
           "license": "Apache-2.0"
         },
         {
@@ -60,6 +67,13 @@
           "source": "overrides/cli/deeptutor/services/model_selection/llm.py",
           "base_sha256": "631d9f80acbd59ca2579d70338a35f5224e4e54406baee5b2b3967fb8da11c2d",
           "sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/services/office_preview.py",
+          "source": "overrides/cli/deeptutor/services/office_preview.py",
+          "base_sha256": "5a0f45b771f238882a3cfd54785eb13e8da4e6cb560290b59c2a31cf6334cb72",
+          "sha256": "548b86d8e5edbcd6c32ee0186a1708c2d6e0b4118139b2c059a09bfe69405d65",
           "license": "Apache-2.0"
         }
       ]
@@ -85,7 +99,7 @@
           "path": "deeptutor/api/routers/reading.py",
           "source": "overrides/desktop/deeptutor/api/routers/reading.py",
           "base_sha256": "8fc9e8a303f0350530db7bc7fe7e2263537b44e95845d817a7488f995c04e5d8",
-          "sha256": "51dff8071311ca1ad07e3b7dc71a76b377aae603fbd4a822518876fc98daffa2",
+          "sha256": "d80b26fae2763bd995fe8f24459d15d5f64a5727264e42819da3356de2b80f78",
           "license": "Apache-2.0"
         },
         {
@@ -131,6 +145,13 @@
           "license": "Apache-2.0"
         },
         {
+          "path": "deeptutor/reading/catalog_store.py",
+          "source": "overrides/desktop/deeptutor/reading/catalog_store.py",
+          "base_sha256": "375994fba85d7feacd93a6c3b8c7c328483fd7c793c212d7f03803764640d768",
+          "sha256": "bafc1c61ebef72a570db80da202b691b7caff859a9df77a5bc02917507b9fc24",
+          "license": "Apache-2.0"
+        },
+        {
           "path": "deeptutor/reading/extract.py",
           "source": "overrides/desktop/deeptutor/reading/extract.py",
           "base_sha256": "54c51ac2db1922243250202be79bc2d162a7325b7d846c76d4a21534547bbd23",
@@ -162,7 +183,7 @@
           "path": "deeptutor/reading/store.py",
           "source": "overrides/desktop/deeptutor/reading/store.py",
           "base_sha256": "4a917d0323ade08c4ebdb2be8c7ee20cdbb48d8b7076ca84fb6d7198925554c4",
-          "sha256": "3072965fe6dcce1d4e937a8280026f17c9899c7be92a8239bdc401286a0ff04e",
+          "sha256": "701a15fda0f50acccc8255b661013cf37e5b67dbf937f9a7cd140d0d1d3a1295",
           "license": "Apache-2.0"
         },
         {
@@ -170,6 +191,13 @@
           "source": "overrides/desktop/deeptutor/services/model_selection/llm.py",
           "base_sha256": "631d9f80acbd59ca2579d70338a35f5224e4e54406baee5b2b3967fb8da11c2d",
           "sha256": "2c1ef33224e46eee7f1e0ec2e3f899ca72f11a2b55936532aa6929e76cbbfcb7",
+          "license": "Apache-2.0"
+        },
+        {
+          "path": "deeptutor/services/office_preview.py",
+          "source": "overrides/desktop/deeptutor/services/office_preview.py",
+          "base_sha256": "5a0f45b771f238882a3cfd54785eb13e8da4e6cb560290b59c2a31cf6334cb72",
+          "sha256": "548b86d8e5edbcd6c32ee0186a1708c2d6e0b4118139b2c059a09bfe69405d65",
           "license": "Apache-2.0"
         },
         {

@@ -23,7 +23,7 @@ diff --git a/deeptutor/api/routers/reading.py b/deeptutor/api/routers/reading.py
 +++ b/deeptutor/api/routers/reading.py
 @@ -1,3 +1,5 @@
 +# SPDX-License-Identifier: Apache-2.0
-+# Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
++# Modified by SaMappp for paged PowerPoint reading; see NOTICE.
  """Immersive reading API — materials, unit text, annotations, export.
  
  A thin adapter over :mod:`deeptutor.reading`: it validates HTTP inputs, maps
@@ -80,6 +80,28 @@ diff --git a/deeptutor/api/routers/reading.py b/deeptutor/api/routers/reading.py
      store = _store()
      try:
          return [
+@@ -1087,7 +1107,7 @@
+             background_tasks.add_task(service.process_media, record.material_id)
+             return _detail(store, store.manifest(record.material_id))
+         else:
+-            manifest = store.ingest(tmp_path, filename=filename)
++            manifest = await asyncio.to_thread(store.ingest, tmp_path, filename=filename)
+             catalog = _catalog()
+             if reuse or catalog.get_material(manifest.material_id) is None:
+                 catalog.register_manifest(manifest)
+@@ -1322,7 +1342,11 @@
+     return FileResponse(
+         path,
+         media_type=manifest.mime or "application/octet-stream",
+-        filename=manifest.filename,
++        filename=(
++            str(Path(manifest.filename).with_suffix(".pdf"))
++            if manifest.render_mode == "pdf" and path.suffix.lower() == ".pdf"
++            else manifest.filename
++        ),
+         content_disposition_type="inline",
+     )
+ 
 diff --git a/deeptutor/knowledge/add_documents.py b/deeptutor/knowledge/add_documents.py
 --- a/deeptutor/knowledge/add_documents.py
 +++ b/deeptutor/knowledge/add_documents.py
@@ -118,6 +140,31 @@ diff --git a/deeptutor/knowledge/initializer.py b/deeptutor/knowledge/initialize
          return copied_files
  
      async def process_documents(
+diff --git a/deeptutor/reading/catalog_store.py b/deeptutor/reading/catalog_store.py
+--- a/deeptutor/reading/catalog_store.py
++++ b/deeptutor/reading/catalog_store.py
+@@ -1,3 +1,5 @@
++# SPDX-License-Identifier: Apache-2.0
++# Modified by SaMappp for paged PowerPoint reading; see NOTICE.
+ """SQLite catalog for private Immersive Reading workspaces.
+ 
+ The database lives below the current owner's existing ``workspace/reading``
+@@ -348,6 +350,15 @@
+             render_mode=manifest.render_mode,
+             status=IngestionStatus.READY,
+         )
++
++    def enable_presentation_pages(self, content_id: str) -> None:
++        """Update existing aliases after the shared PDF was published."""
++        with self._lock, self._connect() as conn:
++            conn.execute(
++                "UPDATE reading_materials SET render_mode = 'pdf', mime = 'application/pdf' "
++                "WHERE content_id = ? AND source_kind = 'file' AND render_mode = 'text'",
++                (content_id,),
++            )
+ 
+     def get_material(self, material_id: str) -> MaterialRecord | None:
+         self._validate_id(material_id, "material")
 diff --git a/deeptutor/reading/knowledge_sync.py b/deeptutor/reading/knowledge_sync.py
 new file mode 100644
 --- /dev/null
@@ -377,11 +424,44 @@ diff --git a/deeptutor/reading/store.py b/deeptutor/reading/store.py
 +++ b/deeptutor/reading/store.py
 @@ -1,3 +1,5 @@
 +# SPDX-License-Identifier: Apache-2.0
-+# Modified by SaMappp for reading material order; see NOTICE.
++# Modified by SaMappp for paged PowerPoint reading; see NOTICE.
  """On-disk store for reading materials and their annotations.
  
  Layout, one directory per extracted content::
-@@ -92,6 +94,19 @@
+@@ -37,10 +39,12 @@
+ import re
+ import shutil
+ import sqlite3
++import tempfile
+ import threading
+ import time
+ from typing import Any, Iterator, Literal, Mapping, Sequence
+ import uuid
++from weakref import WeakValueDictionary
+ 
+ from deeptutor.reading.extract import MARKDOWN_SUFFIXES, extract_material, synthesise_outline
+ from deeptutor.reading.models import (
+@@ -59,6 +63,11 @@
+     UnitReference,
+ )
+ from deeptutor.services.file_io import atomic_write_text as _atomic_write
++from deeptutor.services.office_preview import (
++    OfficePreviewError,
++    PRESENTATION_SUFFIXES,
++    render_presentation_pdf,
++)
+ from deeptutor.services.path_service import get_path_service
+ 
+ logger = logging.getLogger(__name__)
+@@ -76,6 +85,7 @@
+ UNIT_REFS_NAME = "unit_refs.json"
+ UNITS_DIR = "units"
+ RAW_DIR = "raw"
++PRESENTATION_SOURCE_DIR = "presentation-source"
+ MEDIA_DIR = "media"
+ MEDIA_INDEX_NAME = "media.json"
+ RENDER_DIR = "render"
+@@ -92,6 +102,19 @@
  # for "1-400" cannot blow the turn's context budget. The tool reports the
  # truncation rather than silently trimming.
  MAX_READ_CHARS = 60_000
@@ -401,7 +481,141 @@ diff --git a/deeptutor/reading/store.py b/deeptutor/reading/store.py
  
  
  def _normalise_selector_text(value: str) -> str:
-@@ -432,7 +447,7 @@
+@@ -173,8 +196,6 @@
+                 else None
+             )
+         )
+-        self._locks_guard = threading.Lock()
+-        self._locks: dict[str, threading.RLock] = {}
+ 
+     # -- paths ------------------------------------------------------------
+ 
+@@ -238,9 +259,12 @@
+     def _unit_file(material_dir: Path, locator: int) -> Path:
+         return material_dir / UNITS_DIR / f"{locator:04d}.txt"
+ 
++    _locks_guard = threading.Lock()
++    _locks: WeakValueDictionary[tuple[Path, str], threading.RLock] = WeakValueDictionary()
++
+     @contextmanager
+     def _locked(self, material_id: str) -> Iterator[None]:
+-        lock_id = self._content_id(material_id)
++        lock_id = (self.root.resolve(), self._content_id(material_id))
+         with self._locks_guard:
+             lock = self._locks.get(lock_id)
+             if lock is None:
+@@ -267,6 +291,7 @@
+ 
+         source_data = data
+         is_epub = path.suffix.lower() == ".epub"
++        is_presentation = path.suffix.lower() in PRESENTATION_SUFFIXES
+         if is_epub:
+             from deeptutor.utils.document_extractor import (
+                 DocumentExtractionError,
+@@ -285,6 +310,17 @@
+ 
+         with self._locked(material_id):
+             existing = self._load_manifest(material_id)
++            if (
++                is_presentation and existing is not None
++                and existing.unit == "page" and existing.render_mode == "text"
++                and (self._dir(material_id) / PRESENTATION_SOURCE_DIR).is_dir()
++                and self._find_raw(self._dir(material_id)) is not None
++            ):
++                # Retry a catalog update interrupted after the PDF was installed.
++                from deeptutor.reading.catalog_store import ReadingCatalogStore
++
++                ReadingCatalogStore(self.root).enable_presentation_pages(material_id)
++                existing = self._load_manifest(material_id)
+             if existing is not None and self._is_complete(material_id, existing):
+                 wants_epub_upgrade = (
+                     path.suffix.lower() == ".epub" and existing.render_mode != "epub"
+@@ -294,15 +330,37 @@
+                     and data != source_data
+                     and not (self._dir(material_id) / RENDER_DIR).is_dir()
+                 )
+-                if not wants_epub_upgrade and not needs_render_archive:
++                wants_presentation_upgrade = is_presentation and existing.render_mode != "pdf"
++                if not wants_epub_upgrade and not needs_render_archive and not wants_presentation_upgrade:
+                     return existing
+-                if self.annotations(material_id):
++                if is_epub and self.annotations(material_id):
+                     raise ReadingUpgradeConflict(
+                         "This EPUB was imported by the legacy text reader and has annotations. "
+                         "Export those annotations before replacing it with the source-faithful version."
+                     )
+ 
+-            extraction = extract_material(path, data=data if is_epub else None)
++            presentation_pdf = None
++            if is_presentation:
++                try:
++                    presentation_pdf = render_presentation_pdf(
++                        source_data, display_name, self.root / ".presentation-cache"
++                    )
++                except OfficePreviewError as exc:
++                    raise ReadingError(f"{display_name}: {exc}") from exc
++                with tempfile.TemporaryDirectory(prefix="dt-presentation-") as temp:
++                    pdf_path = Path(temp) / "slides.pdf"
++                    pdf_path.write_bytes(presentation_pdf)
++                    extraction = extract_material(pdf_path)
++                if not extraction.units:
++                    raise ReadingError(f"{display_name}: conversion produced no pages")
++                if existing is not None and existing.render_mode != "pdf" and (
++                    existing.unit != "slide" or len(extraction.units) != existing.unit_count
++                ):
++                    raise ReadingUpgradeConflict(
++                        f"{display_name}: converted pages do not match the old slide positions"
++                    )
++            else:
++                extraction = extract_material(path, data=data if is_epub else None)
+             material_dir = self._dir(material_id)
+             stage_dir = self.root / f".{material_id}.{uuid.uuid4().hex[:8]}.staging"
+             backup_dir = self.root / f".{material_id}.{uuid.uuid4().hex[:8]}.backup"
+@@ -337,7 +395,14 @@
+                 raw_dir = stage_dir / RAW_DIR
+                 raw_dir.mkdir(parents=True, exist_ok=True)
+                 raw_path = raw_dir / _safe_filename(display_name, fallback=path.name)
+-                raw_path.write_bytes(source_data)
++                if presentation_pdf is not None:
++                    source_dir = stage_dir / PRESENTATION_SOURCE_DIR
++                    source_dir.mkdir()
++                    (source_dir / raw_path.name).write_bytes(source_data)
++                    raw_path = raw_dir / "slides.pdf"
++                    raw_path.write_bytes(presentation_pdf)
++                else:
++                    raw_path.write_bytes(source_data)
+                 if is_epub and data != source_data:
+                     render_dir = stage_dir / RENDER_DIR
+                     render_dir.mkdir(parents=True, exist_ok=True)
+@@ -367,13 +432,15 @@
+                 filename=display_name,
+                 unit=extraction.unit,
+                 unit_count=len(extraction.units),
+-                mime=_guess_mime(display_name),
+-                title=extraction.title or Path(display_name).stem,
++                mime="application/pdf" if is_presentation else _guess_mime(display_name),
++                title=(existing.title if existing and is_presentation else
++                       extraction.title or Path(display_name).stem),
+                 source_hash=material_id,
+                 extractor=extraction.extractor,
+                 byte_size=len(source_data),
+                 char_count=extraction.char_count,
+-                created_at=time.time(),
++                created_at=existing.created_at if existing and is_presentation else time.time(),
++                revision=existing.revision + 1 if existing and is_presentation else 1,
+                 # Compatibility: old clients route this boolean directly to
+                 # pdf.js. EPUB dispatch is carried by ``render_mode`` instead.
+                 has_raw_view=extraction.render_mode == "pdf",
+@@ -401,7 +468,7 @@
+                 POSITIONS_DIR,
+                 BOOKMARKS_DIR,
+             )
+-            if existing is not None and existing.render_mode != "epub":
++            if is_epub and existing is not None and existing.render_mode != "epub":
+                 # A legacy text-reader position can point past the shorter
+                 # source-faithful spine. Annotations are protected above;
+                 # the viewport safely resets to chapter one — which has to
+@@ -432,7 +499,7 @@
                  if material_dir.exists():
                      os.replace(material_dir, backup_dir)
                  try:
@@ -410,6 +624,37 @@ diff --git a/deeptutor/reading/store.py b/deeptutor/reading/store.py
                  except Exception:
                      if backup_dir.exists() and not material_dir.exists():
                          os.replace(backup_dir, material_dir)
+@@ -440,6 +507,10 @@
+             finally:
+                 shutil.rmtree(stage_dir, ignore_errors=True)
+                 shutil.rmtree(backup_dir, ignore_errors=True)
++            if is_presentation and existing is not None:
++                from deeptutor.reading.catalog_store import ReadingCatalogStore
++
++                ReadingCatalogStore(self.root).enable_presentation_pages(material_id)
+             return manifest
+ 
+     def refresh_document(self, material_id: str) -> MaterialManifest:
+@@ -561,7 +632,10 @@
+                 title=extraction.title or existing.title,
+                 source_hash=existing.source_hash,
+                 extractor=extraction.extractor,
+-                byte_size=raw_path.stat().st_size,
++                byte_size=(
++                    existing.byte_size if (material_dir / PRESENTATION_SOURCE_DIR).is_dir()
++                    else raw_path.stat().st_size
++                ),
+                 char_count=extraction.char_count,
+                 created_at=existing.created_at,
+                 has_raw_view=existing.has_raw_view,
+@@ -583,6 +657,7 @@
+             # so they must be carried across or a web snapshot would lose its
+             # images.
+             _carry_dir(material_dir / RAW_DIR, stage_dir / RAW_DIR)
++            _carry_dir(material_dir / PRESENTATION_SOURCE_DIR, stage_dir / PRESENTATION_SOURCE_DIR)
+             _carry_dir(material_dir / ASSETS_DIR, stage_dir / ASSETS_DIR)
+             for state_dir in (ANNOTATIONS_DIR, POSITIONS_DIR, BOOKMARKS_DIR, REVISIONS_DIR):
+                 source_state_dir = material_dir / state_dir
 diff --git a/deeptutor/runtime/launcher.py b/deeptutor/runtime/launcher.py
 --- a/deeptutor/runtime/launcher.py
 +++ b/deeptutor/runtime/launcher.py
@@ -455,3 +700,165 @@ diff --git a/deeptutor/services/model_selection/llm.py b/deeptutor/services/mode
              if isinstance(supported_levels, list):
                  option["supported_reasoning_efforts"] = [
                      str(level).strip().lower() for level in supported_levels if str(level).strip()
+diff --git a/deeptutor/services/office_preview.py b/deeptutor/services/office_preview.py
+--- a/deeptutor/services/office_preview.py
++++ b/deeptutor/services/office_preview.py
+@@ -1,3 +1,5 @@
++# SPDX-License-Identifier: Apache-2.0
++# Modified by SaMappp for paged PowerPoint reading; see NOTICE.
+ """Bounded, cached Office-to-PDF rendering for the file preview drawer.
+ 
+ LibreOffice is optional. Callers can keep their existing browser/text preview
+@@ -8,12 +10,14 @@
+ 
+ import asyncio
+ import hashlib
++import json
+ import os
+ from pathlib import Path
+ import shutil
+ import signal
+ import subprocess
+ import tempfile
++import threading
+ import time
+ 
+ MAX_OFFICE_BYTES = 25 * 1024 * 1024
+@@ -36,7 +40,13 @@
+     }
+ )
+ 
++_PRESENTATION_FILTERS = {
++    ".ppt": (bytes.fromhex("D0CF11E0A1B11AE1"), "MS PowerPoint 97"),
++    ".pptx": (bytes.fromhex("504B0304"), "Impress MS PowerPoint 2007 XML"),
++}
++PRESENTATION_SUFFIXES = frozenset(_PRESENTATION_FILTERS)
+ _conversion_slots = asyncio.Semaphore(2)
++_presentation_slots = threading.BoundedSemaphore(2)
+ 
+ 
+ class OfficePreviewError(Exception):
+@@ -71,7 +81,7 @@
+         raise OfficePreviewInvalid("Unsupported Office file type")
+     if not data or len(data) > MAX_OFFICE_BYTES:
+         raise OfficePreviewInvalid("Office file is empty or too large to preview")
+-    soffice = shutil.which("soffice")
++    soffice = _office_executable()
+     if not soffice:
+         raise OfficePreviewUnavailable("LibreOffice is not installed on the server")
+ 
+@@ -80,7 +90,62 @@
+         return await asyncio.to_thread(_render_sync, data, suffix, cache_dir, key, soffice)
+ 
+ 
+-def _render_sync(data: bytes, suffix: str, cache_dir: Path, key: str, soffice: str) -> bytes:
++def _office_executable() -> str | None:
++    from deeptutor.runtime.home import get_runtime_data_root
++
++    configured = os.environ.get("DEEPTUTOR_SOFFICE", "")
++    if not configured:
++        settings = get_runtime_data_root() / "user/settings/office_preview.json"
++        try:
++            configured = json.loads(settings.read_text(encoding="utf-8"))["soffice"]
++        except (OSError, KeyError, TypeError, ValueError):
++            pass
++    if isinstance(configured, str) and configured:
++        candidate = Path(configured).expanduser()
++        if candidate.is_absolute() and candidate.is_file():
++            return str(candidate)
++    return shutil.which("soffice.com") or shutil.which("soffice")
++
++
++def render_presentation_pdf(data: bytes, filename: str, cache_dir: Path) -> bytes:
++    """Render every source slide, including hidden slides, to one PDF page."""
++    from deeptutor.utils.document_validator import DocumentValidator
++
++    suffix = Path(filename).suffix.lower()
++    limit = DocumentValidator.MAX_FILE_SIZE
++    if suffix not in PRESENTATION_SUFFIXES or not data or len(data) > limit:
++        raise OfficePreviewInvalid("Invalid or oversized PowerPoint presentation")
++    signature, source_filter = _PRESENTATION_FILTERS[suffix]
++    if not data.startswith(signature):
++        raise OfficePreviewInvalid("The file does not match its PowerPoint format")
++    soffice = _office_executable()
++    if not soffice:
++        raise OfficePreviewUnavailable("LibreOffice is required for paged PowerPoint reading")
++    options = {
++        name: {"type": "boolean", "value": value}
++        for name, value in {
++            "ExportHiddenSlides": "true",
++            "ExportNotesPages": "false",
++            "ExportOnlyNotesPages": "false",
++            "UseLosslessCompression": "true",
++            "ReduceImageResolution": "false",
++            "UseTaggedPDF": "true",
++        }.items()
++    }
++    key = hashlib.sha256(b"reading-presentation-v2\0" + suffix.encode() + b"\0" + data).hexdigest()
++    with _presentation_slots:
++        return _render_sync(
++            data, suffix, cache_dir, key, soffice,
++            convert_to="pdf:impress_pdf_Export:" + json.dumps(options, separators=(",", ":")),
++            max_pdf_bytes=limit, timeout=120, source_filter=source_filter,
++        )
++
++
++def _render_sync(
++    data: bytes, suffix: str, cache_dir: Path, key: str, soffice: str, *,
++    convert_to: str = "pdf", max_pdf_bytes: int = MAX_PREVIEW_PDF_BYTES,
++    timeout: int = CONVERSION_TIMEOUT_SECONDS, source_filter: str | None = None,
++) -> bytes:
+     try:
+         cache_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
+         cache_available = True
+@@ -91,14 +156,14 @@
+     cached = cache_dir / f"{key}.pdf"
+     if cache_available and not cached.is_symlink() and cached.is_file():
+         try:
+-            if 0 < cached.stat().st_size <= MAX_PREVIEW_PDF_BYTES:
++            if 0 < cached.stat().st_size <= max_pdf_bytes:
+                 result = cached.read_bytes()
+                 if result.startswith(b"%PDF-"):
+                     return result
+         except OSError:
+             pass
+ 
+-    with tempfile.TemporaryDirectory(prefix="deeptutor-office-preview-") as workdir:
++    with tempfile.TemporaryDirectory(prefix="dt-office-", ignore_cleanup_errors=True) as workdir:
+         work = Path(workdir)
+         source = work / f"source{suffix}"
+         source.write_bytes(data)
+@@ -112,8 +177,9 @@
+                     soffice,
+                     f"-env:UserInstallation={profile.as_uri()}",
+                     "--headless",
++                    *([f"--infilter={source_filter}"] if source_filter else []),
+                     "--convert-to",
+-                    "pdf",
++                    convert_to,
+                     "--outdir",
+                     str(output_dir),
+                     str(source),
+@@ -123,11 +189,12 @@
+                 stdout=subprocess.PIPE,
+                 stderr=subprocess.PIPE,
+                 start_new_session=os.name == "posix",
++                creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
+             )
+         except OSError as exc:
+             raise OfficePreviewConversionFailed("Could not start LibreOffice") from exc
+         try:
+-            process.communicate(timeout=CONVERSION_TIMEOUT_SECONDS)
++            process.communicate(timeout=timeout)
+         except subprocess.TimeoutExpired as exc:
+             # `soffice` may launch soffice.bin; kill the whole process group,
+             # rather than leaving a converter running after the request ends.
+@@ -147,7 +214,7 @@
+         rendered = output_dir / "source.pdf"
+         if process.returncode != 0 or not rendered.is_file():
+             raise OfficePreviewConversionFailed("LibreOffice could not render this file")
+-        if rendered.stat().st_size > MAX_PREVIEW_PDF_BYTES:
++        if rendered.stat().st_size > max_pdf_bytes:
+             raise OfficePreviewInvalid("Rendered PDF is too large to preview")
+         pdf = rendered.read_bytes()
+         if not pdf.startswith(b"%PDF-"):

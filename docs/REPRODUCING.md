@@ -111,7 +111,13 @@ $env:DEEPTUTOR_NATIVE_OCR_CONFIG='C:/your/private/native-ocr/configuration.json'
 
 单页扫描文档、并发和缓存测试应使用自己的合成样例。历史验收程序含原测试目录假设，原测试 PDF 未分发；不能运行后声称自动具备所有历史材料。
 
-## 7. 模型、数据与升级
+## 7. 沉浸式阅读直接导入 PPT/PPTX
+
+应用 CLI 或桌面后端补丁后，使用含 Impress 的 LibreOffice，并让运行后端的账户可以找到 `soffice`。如未加入 PATH，在该实例的 `data/user/settings/office_preview.json` 填写 `{"soffice":"C:/path/to/LibreOffice/program/soffice.com"}`，或设置 `DEEPTUTOR_SOFFICE` 为转换器的绝对路径。重启后端后，从沉浸式阅读的「添加资料」上传 PPT/PPTX。LibreOffice 单独安装，使用隔离的临时配置。原始课件留在资料目录的 `presentation-source/`，PDF 供阅读、选字和伴读。
+
+旧文本资料可以重新添加原件进行升级，页数不匹配时会保留旧记录。对于原件仍在同一工作区知识库 `raw` 目录的资料，也可用 `tools/upgrade_legacy_presentations.py --workspace-data <该实例的data目录>` 检查匹配数。停止目标实例后，加 `--apply --backup-dir <私有备份目录>` 可备份并批量升级。脚本使用已应用补丁的后端环境，页码以原始幻灯片顺序为准。
+
+## 8. 模型、数据与升级
 
 首次配置由用户自己通过官方登录或获准 API 完成。`tools/provider_config.py` 默认只读检查；显式 `--apply` 才增量写入模型 profile，不更改活动默认模型。详见 `PROVIDER_INTEGRATIONS.md`。
 

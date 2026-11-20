@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Modified by SaMappp from HKUDS/DeepTutor v1.7.1; see NOTICE and docs/CHANGE_INVENTORY.md.
+# Modified by SaMappp for paged PowerPoint reading; see NOTICE.
 """Immersive reading API — materials, unit text, annotations, export.
 
 A thin adapter over :mod:`deeptutor.reading`: it validates HTTP inputs, maps
@@ -1107,7 +1107,7 @@ async def upload_material(
             background_tasks.add_task(service.process_media, record.material_id)
             return _detail(store, store.manifest(record.material_id))
         else:
-            manifest = store.ingest(tmp_path, filename=filename)
+            manifest = await asyncio.to_thread(store.ingest, tmp_path, filename=filename)
             catalog = _catalog()
             if reuse or catalog.get_material(manifest.material_id) is None:
                 catalog.register_manifest(manifest)
@@ -1342,7 +1342,11 @@ def _material_file_response(material_id: str, *, browser_ready: bool) -> FileRes
     return FileResponse(
         path,
         media_type=manifest.mime or "application/octet-stream",
-        filename=manifest.filename,
+        filename=(
+            str(Path(manifest.filename).with_suffix(".pdf"))
+            if manifest.render_mode == "pdf" and path.suffix.lower() == ".pdf"
+            else manifest.filename
+        ),
         content_disposition_type="inline",
     )
 

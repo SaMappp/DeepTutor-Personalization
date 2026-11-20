@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Modified by SaMappp for reading material order; see NOTICE.
+# Modified by SaMappp for paged PowerPoint reading; see NOTICE.
 """On-disk store for reading materials and their annotations.
 
 Layout, one directory per extracted content::
@@ -39,10 +39,12 @@ import posixpath
 import re
 import shutil
 import sqlite3
+import tempfile
 import threading
 import time
 from typing import Any, Iterator, Literal, Mapping, Sequence
 import uuid
+from weakref import WeakValueDictionary
 
 from deeptutor.reading.extract import MARKDOWN_SUFFIXES, extract_material, synthesise_outline
 from deeptutor.reading.models import (
@@ -61,6 +63,11 @@ from deeptutor.reading.models import (
     UnitReference,
 )
 from deeptutor.services.file_io import atomic_write_text as _atomic_write
+from deeptutor.services.office_preview import (
+    OfficePreviewError,
+    PRESENTATION_SUFFIXES,
+    render_presentation_pdf,
+)
 from deeptutor.services.path_service import get_path_service
 
 logger = logging.getLogger(__name__)
@@ -78,6 +85,7 @@ MAX_BOOKMARKS = 200
 UNIT_REFS_NAME = "unit_refs.json"
 UNITS_DIR = "units"
 RAW_DIR = "raw"
+PRESENTATION_SOURCE_DIR = "presentation-source"
 MEDIA_DIR = "media"
 MEDIA_INDEX_NAME = "media.json"
 RENDER_DIR = "render"
@@ -188,8 +196,6 @@ class ReadingStore:
                 else None
             )
         )
-        self._locks_guard = threading.Lock()
-        self._locks: dict[str, threading.RLock] = {}
 
     # -- paths ------------------------------------------------------------
 
@@ -253,9 +259,12 @@ class ReadingStore:
     def _unit_file(material_dir: Path, locator: int) -> Path:
         return material_dir / UNITS_DIR / f"{locator:04d}.txt"
 
+    _locks_guard = threading.Lock()
+    _locks: WeakValueDictionary[tuple[Path, str], threading.RLock] = WeakValueDictionary()
+
     @contextmanager
     def _locked(self, material_id: str) -> Iterator[None]:
-        lock_id = self._content_id(material_id)
+        lock_id = (self.root.resolve(), self._content_id(material_id))
         with self._locks_guard:
             lock = self._locks.get(lock_id)
             if lock is None:
@@ -282,6 +291,7 @@ class ReadingStore:
 
         source_data = data
         is_epub = path.suffix.lower() == ".epub"
+        is_presentation = path.suffix.lower() in PRESENTATION_SUFFIXES
         if is_epub:
             from deeptutor.utils.document_extractor import (
                 DocumentExtractionError,
@@ -300,6 +310,17 @@ class ReadingStore:
 
         with self._locked(material_id):
             existing = self._load_manifest(material_id)
+            if (
+                is_presentation and existing is not None
+                and existing.unit == "page" and existing.render_mode == "text"
+                and (self._dir(material_id) / PRESENTATION_SOURCE_DIR).is_dir()
+                and self._find_raw(self._dir(material_id)) is not None
+            ):
+                # Retry a catalog update interrupted after the PDF was installed.
+                from deeptutor.reading.catalog_store import ReadingCatalogStore
+
+                ReadingCatalogStore(self.root).enable_presentation_pages(material_id)
+                existing = self._load_manifest(material_id)
             if existing is not None and self._is_complete(material_id, existing):
                 wants_epub_upgrade = (
                     path.suffix.lower() == ".epub" and existing.render_mode != "epub"
@@ -309,15 +330,37 @@ class ReadingStore:
                     and data != source_data
                     and not (self._dir(material_id) / RENDER_DIR).is_dir()
                 )
-                if not wants_epub_upgrade and not needs_render_archive:
+                wants_presentation_upgrade = is_presentation and existing.render_mode != "pdf"
+                if not wants_epub_upgrade and not needs_render_archive and not wants_presentation_upgrade:
                     return existing
-                if self.annotations(material_id):
+                if is_epub and self.annotations(material_id):
                     raise ReadingUpgradeConflict(
                         "This EPUB was imported by the legacy text reader and has annotations. "
                         "Export those annotations before replacing it with the source-faithful version."
                     )
 
-            extraction = extract_material(path, data=data if is_epub else None)
+            presentation_pdf = None
+            if is_presentation:
+                try:
+                    presentation_pdf = render_presentation_pdf(
+                        source_data, display_name, self.root / ".presentation-cache"
+                    )
+                except OfficePreviewError as exc:
+                    raise ReadingError(f"{display_name}: {exc}") from exc
+                with tempfile.TemporaryDirectory(prefix="dt-presentation-") as temp:
+                    pdf_path = Path(temp) / "slides.pdf"
+                    pdf_path.write_bytes(presentation_pdf)
+                    extraction = extract_material(pdf_path)
+                if not extraction.units:
+                    raise ReadingError(f"{display_name}: conversion produced no pages")
+                if existing is not None and existing.render_mode != "pdf" and (
+                    existing.unit != "slide" or len(extraction.units) != existing.unit_count
+                ):
+                    raise ReadingUpgradeConflict(
+                        f"{display_name}: converted pages do not match the old slide positions"
+                    )
+            else:
+                extraction = extract_material(path, data=data if is_epub else None)
             material_dir = self._dir(material_id)
             stage_dir = self.root / f".{material_id}.{uuid.uuid4().hex[:8]}.staging"
             backup_dir = self.root / f".{material_id}.{uuid.uuid4().hex[:8]}.backup"
@@ -352,7 +395,14 @@ class ReadingStore:
                 raw_dir = stage_dir / RAW_DIR
                 raw_dir.mkdir(parents=True, exist_ok=True)
                 raw_path = raw_dir / _safe_filename(display_name, fallback=path.name)
-                raw_path.write_bytes(source_data)
+                if presentation_pdf is not None:
+                    source_dir = stage_dir / PRESENTATION_SOURCE_DIR
+                    source_dir.mkdir()
+                    (source_dir / raw_path.name).write_bytes(source_data)
+                    raw_path = raw_dir / "slides.pdf"
+                    raw_path.write_bytes(presentation_pdf)
+                else:
+                    raw_path.write_bytes(source_data)
                 if is_epub and data != source_data:
                     render_dir = stage_dir / RENDER_DIR
                     render_dir.mkdir(parents=True, exist_ok=True)
@@ -382,13 +432,15 @@ class ReadingStore:
                 filename=display_name,
                 unit=extraction.unit,
                 unit_count=len(extraction.units),
-                mime=_guess_mime(display_name),
-                title=extraction.title or Path(display_name).stem,
+                mime="application/pdf" if is_presentation else _guess_mime(display_name),
+                title=(existing.title if existing and is_presentation else
+                       extraction.title or Path(display_name).stem),
                 source_hash=material_id,
                 extractor=extraction.extractor,
                 byte_size=len(source_data),
                 char_count=extraction.char_count,
-                created_at=time.time(),
+                created_at=existing.created_at if existing and is_presentation else time.time(),
+                revision=existing.revision + 1 if existing and is_presentation else 1,
                 # Compatibility: old clients route this boolean directly to
                 # pdf.js. EPUB dispatch is carried by ``render_mode`` instead.
                 has_raw_view=extraction.render_mode == "pdf",
@@ -416,7 +468,7 @@ class ReadingStore:
                 POSITIONS_DIR,
                 BOOKMARKS_DIR,
             )
-            if existing is not None and existing.render_mode != "epub":
+            if is_epub and existing is not None and existing.render_mode != "epub":
                 # A legacy text-reader position can point past the shorter
                 # source-faithful spine. Annotations are protected above;
                 # the viewport safely resets to chapter one — which has to
@@ -455,6 +507,10 @@ class ReadingStore:
             finally:
                 shutil.rmtree(stage_dir, ignore_errors=True)
                 shutil.rmtree(backup_dir, ignore_errors=True)
+            if is_presentation and existing is not None:
+                from deeptutor.reading.catalog_store import ReadingCatalogStore
+
+                ReadingCatalogStore(self.root).enable_presentation_pages(material_id)
             return manifest
 
     def refresh_document(self, material_id: str) -> MaterialManifest:
@@ -576,7 +632,10 @@ class ReadingStore:
                 title=extraction.title or existing.title,
                 source_hash=existing.source_hash,
                 extractor=extraction.extractor,
-                byte_size=raw_path.stat().st_size,
+                byte_size=(
+                    existing.byte_size if (material_dir / PRESENTATION_SOURCE_DIR).is_dir()
+                    else raw_path.stat().st_size
+                ),
                 char_count=extraction.char_count,
                 created_at=existing.created_at,
                 has_raw_view=existing.has_raw_view,
@@ -598,6 +657,7 @@ class ReadingStore:
             # so they must be carried across or a web snapshot would lose its
             # images.
             _carry_dir(material_dir / RAW_DIR, stage_dir / RAW_DIR)
+            _carry_dir(material_dir / PRESENTATION_SOURCE_DIR, stage_dir / PRESENTATION_SOURCE_DIR)
             _carry_dir(material_dir / ASSETS_DIR, stage_dir / ASSETS_DIR)
             for state_dir in (ANNOTATIONS_DIR, POSITIONS_DIR, BOOKMARKS_DIR, REVISIONS_DIR):
                 source_state_dir = material_dir / state_dir
